@@ -2,21 +2,21 @@ import './style.css'
 
 console.log('Hello from typescript')
 
-function checkDom<t extends HTMLElement>(v: t): void {
+function checkDom<t extends HTMLElement>(v: t | null): void {
   if (!v) {
     throw new Error("id or class don't found")
   }
 }
-
 
 // taking all dom in ts
 const listTodo = document.querySelector<HTMLDivElement>('#todo-list')
 checkDom(listTodo)
 const menuCreat = document.querySelector<HTMLDivElement>('#creat-todo')
 checkDom(menuCreat)
-const addNewTodoBtn = document.querySelector<HTMLButtonElement>('#add-new-todo-btn')
+const addNewTodoBtn =
+  document.querySelector<HTMLButtonElement>('#add-new-todo-btn')
 checkDom(addNewTodoBtn)
-const titleInput = document.querySelector<HTMLInputElement>('#todo-input');
+const titleInput = document.querySelector<HTMLInputElement>('#todo-input')
 checkDom(titleInput)
 const plusBtn = document.querySelector<HTMLButtonElement>('.add-btn')
 checkDom(plusBtn)
