@@ -1,28 +1,25 @@
 import './style.css'
 
 console.log('Hello from typescript')
+
+function checkDom<t extends HTMLElement>(v: t): void {
+  if (!v) {
+    throw new Error("id or class don't found")
+  }
+}
+
+
 // taking all dom in ts
 const listTodo = document.querySelector<HTMLDivElement>('#todo-list')
-if (!listTodo) {
-  throw new Error('hil')
-}
+checkDom(listTodo)
 const menuCreat = document.querySelector<HTMLDivElement>('#creat-todo')
-if (!menuCreat) {
-  throw new Error('hil')
-}
-const addNewTodoBtn =
-  document.querySelector<HTMLButtonElement>('#add-new-todo-btn')
-if (!addNewTodoBtn) {
-  throw new Error('hil')
-}
-const titleInput = document.querySelector<HTMLInputElement>('#todo-input')
-if (!titleInput) {
-  throw new Error('hil')
-}
+checkDom(menuCreat)
+const addNewTodoBtn = document.querySelector<HTMLButtonElement>('#add-new-todo-btn')
+checkDom(addNewTodoBtn)
+const titleInput = document.querySelector<HTMLInputElement>('#todo-input');
+checkDom(titleInput)
 const plusBtn = document.querySelector<HTMLButtonElement>('.add-btn')
-if (!plusBtn) {
-  throw new Error('hil')
-}
+checkDom(plusBtn)
 
 // main logic
 
