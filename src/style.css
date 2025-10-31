@@ -72,6 +72,16 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
+.delit-todo-btn {
+  background: red;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  
+}
+
 .add-btn:hover {
   background-color: #005fcc;
   transform: scale(1.1);
