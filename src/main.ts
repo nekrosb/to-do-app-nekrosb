@@ -78,10 +78,10 @@ function doneOrNotDone(id: number): void {
 }
 
 function delitTodo(id: number): void {
-  const todo = todos.findIndex(t => t.id === id)
+  const todo = todos.findIndex((t) => t.id === id)
   todos.splice(todo, 1)
   save()
-  const div = listTodo?.querySelector<HTMLDivElement>(`[data-id='${id}']`)  
+  const div = listTodo?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
   if (div) {
     div.remove()
   }
@@ -99,17 +99,17 @@ function creatTodoElement(todo: TodoData): void {
   doneBtn.textContent = !todo.done ? finishHimText : iEmNotDieText
   doneBtn.classList.add('finish-todo-btn')
 
-const delitBtn = document.createElement('button')
-delitBtn.textContent = "X"
-delitBtn.classList.add('delit-todo-btn')
+  const delitBtn = document.createElement('button')
+  delitBtn.textContent = 'X'
+  delitBtn.classList.add('delit-todo-btn')
 
   if (todo.done) {
     newDiv.classList.toggle('todo-done')
   }
 
-delitBtn.addEventListener("click", (): void => {
-delitTodo(todo.id)
-})
+  delitBtn.addEventListener('click', (): void => {
+    delitTodo(todo.id)
+  })
 
   doneBtn.addEventListener('click', (): void => {
     doneOrNotDone(todo.id)
