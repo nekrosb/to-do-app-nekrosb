@@ -2,6 +2,11 @@ import './style.css'
 
 console.log('Hello from typescript')
 
+// litel constants
+
+const finishHimText = 'FINISH HIM'
+const iEmNotDieText = 'I EM NOT DIE?'
+
 // taking all dom in ts
 const listTodo = document.querySelector<HTMLDivElement>('#todo-list')
 const menuCreat = document.querySelector<HTMLDivElement>('#creat-todo')
@@ -67,7 +72,7 @@ if (div) {
   div.classList.toggle('todo-done')
   const btn = div.querySelector<HTMLButtonElement>(".finish-todo-btn")
 if (btn) {
-  btn.textContent = !todo.done ? "FINISH HIM"  : "I EM NOT DIE?"
+  btn.textContent = !todo.done ? finishHimText : iEmNotDieText
 }
 }
 }
@@ -82,7 +87,7 @@ function creatTodoElement(todo: TodoData): void {
   p.textContent = todo.title
 
   const doneBtn = document.createElement("button")
-doneBtn.textContent = !todo.done ? "FINISH HIM"  : "I EM NOT DIE?"
+doneBtn.textContent = !todo.done ? finishHimText  : iEmNotDieText
 doneBtn.classList.add("finish-todo-btn")
 
 if (todo.done) {
