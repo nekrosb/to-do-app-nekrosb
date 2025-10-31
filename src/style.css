@@ -51,6 +51,10 @@ body {
   white-space: normal;
 }
 
+.todo-done {
+  background-image: repeating-linear-gradient(red, yellow, green);
+}
+
 .add-btn {
   display: flex;
   justify-content: center;
@@ -81,6 +85,12 @@ body {
 .add-btn:focus {
   outline: 3px solid #80bfff;
   outline-offset: 3px;
+}
+
+.finish-todo-btn {
+  background: red;
+  color: pink;
+  border: none;
 }
 
 .hidden {
