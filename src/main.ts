@@ -21,14 +21,20 @@ if (
   throw new Error('html element not found')
 }
 
-//local storage
+// types and local storage
 
-let todos: string[] = []
+interface TodoData {
+  id: number
+  title: string
+  done: boolean
+}
+
+let todos: TodoData[] = []
 
 function load(): void {
   const saved = localStorage.getItem('todos')
   if (saved) {
-    todos = JSON.parse(saved)
+    todos = JSON.parse(saved) as TodoData[]
     todos.forEach((todo): void => {
       creatTodoElement(todo)
     })
@@ -49,21 +55,60 @@ const hiddenMainMenu = (): void => {
   menuCreat.classList.remove('hidden')
 }
 
-function creatTodoElement(text: string): void {
+function doneOrNotDone(id: number): void {
+  const todo = todos.find(t => t.id === id)
+  if (!todo) return
+  todo.done = !todo.done
+  save()
+
+const div = listTodo?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
+
+if (div) {
+  div.classList.toggle('todo-done')
+  const btn = div.querySelector<HTMLButtonElement>(".finish-todo-btn")
+if (btn) {
+  btn.textContent = !todo.done ? "FINISH HIM"  : "I EM NOT DIE?"
+}
+}
+}
+
+
+function creatTodoElement(todo: TodoData): void {
   const newDiv = document.createElement('div') as HTMLDivElement
   newDiv.classList.add('todo')
+  newDiv.dataset.id = todo.id.toString()
+
   const p = document.createElement('p') as HTMLParagraphElement
-  p.textContent = text
+  p.textContent = todo.title
+
+  const doneBtn = document.createElement("button")
+doneBtn.textContent = !todo.done ? "FINISH HIM"  : "I EM NOT DIE?"
+doneBtn.classList.add("finish-todo-btn")
+
+if (todo.done) {
+  newDiv.classList.toggle("todo-done")
+}
+
+doneBtn.addEventListener("click", (): void => {
+  doneOrNotDone(todo.id)
+})
+
   newDiv.appendChild(p)
+  newDiv.appendChild(doneBtn)
   listTodo?.appendChild(newDiv)
 }
 
 const creatNewToDo = (): void => {
-  const text = titleInput.value
-  if (text !== '') {
-    todos.push(text)
+  const todo: TodoData = {
+    id: Date.now(),
+    title: titleInput.value,
+    done: false,
+  }
+
+  if (todo.title !== '') {
+    todos.push(todo)
     save()
-    creatTodoElement(text)
+    creatTodoElement(todo)
     titleInput.value = ''
     plusBtn.classList.remove('hidden')
     listTodo.classList.remove('hidden')
@@ -72,6 +117,9 @@ const creatNewToDo = (): void => {
     alert('you forget sam sings')
   }
 }
+
+
+// event listeners
 
 plusBtn.addEventListener('click', hiddenMainMenu)
 
