@@ -61,22 +61,21 @@ const hiddenMainMenu = (): void => {
 }
 
 function doneOrNotDone(id: number): void {
-  const todo = todos.find(t => t.id === id)
+  const todo = todos.find((t) => t.id === id)
   if (!todo) return
   todo.done = !todo.done
   save()
 
-const div = listTodo?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
+  const div = listTodo?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
 
-if (div) {
-  div.classList.toggle('todo-done')
-  const btn = div.querySelector<HTMLButtonElement>(".finish-todo-btn")
-if (btn) {
-  btn.textContent = !todo.done ? finishHimText : iEmNotDieText
+  if (div) {
+    div.classList.toggle('todo-done')
+    const btn = div.querySelector<HTMLButtonElement>('.finish-todo-btn')
+    if (btn) {
+      btn.textContent = !todo.done ? finishHimText : iEmNotDieText
+    }
+  }
 }
-}
-}
-
 
 function creatTodoElement(todo: TodoData): void {
   const newDiv = document.createElement('div') as HTMLDivElement
@@ -86,17 +85,17 @@ function creatTodoElement(todo: TodoData): void {
   const p = document.createElement('p') as HTMLParagraphElement
   p.textContent = todo.title
 
-  const doneBtn = document.createElement("button")
-doneBtn.textContent = !todo.done ? finishHimText  : iEmNotDieText
-doneBtn.classList.add("finish-todo-btn")
+  const doneBtn = document.createElement('button')
+  doneBtn.textContent = !todo.done ? finishHimText : iEmNotDieText
+  doneBtn.classList.add('finish-todo-btn')
 
-if (todo.done) {
-  newDiv.classList.toggle("todo-done")
-}
+  if (todo.done) {
+    newDiv.classList.toggle('todo-done')
+  }
 
-doneBtn.addEventListener("click", (): void => {
-  doneOrNotDone(todo.id)
-})
+  doneBtn.addEventListener('click', (): void => {
+    doneOrNotDone(todo.id)
+  })
 
   newDiv.appendChild(p)
   newDiv.appendChild(doneBtn)
@@ -122,7 +121,6 @@ const creatNewToDo = (): void => {
     alert('you forget sam sings')
   }
 }
-
 
 // event listeners
 

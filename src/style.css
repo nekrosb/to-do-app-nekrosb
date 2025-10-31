@@ -55,8 +55,6 @@ body {
   background-image: repeating-linear-gradient(red, yellow, green);
 }
 
-
-
 .add-btn {
   display: flex;
   justify-content: center;
@@ -91,10 +89,9 @@ body {
 
 .finish-todo-btn {
   background: red;
-color: pink;
-border: none;
+  color: pink;
+  border: none;
 }
-
 
 .hidden {
   display: none;
