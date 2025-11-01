@@ -10,10 +10,13 @@ const iEmNotDieText = 'I EM NOT DIE?'
 // taking all dom in ts
 const listTodo = document.querySelector<HTMLDivElement>('#todo-list')
 const menuCreat = document.querySelector<HTMLDivElement>('#creat-todo')
+const closeCreatMenuBtn =
+  document.querySelector<HTMLButtonElement>('#close-create-menu')
 const addNewTodoBtn =
   document.querySelector<HTMLButtonElement>('#add-new-todo-btn')
 const titleInput = document.querySelector<HTMLInputElement>('#todo-input')
 const plusBtn = document.querySelector<HTMLButtonElement>('.add-btn')
+const delitAllBtn = document.querySelector<HTMLButtonElement>('#delit-all-btn')
 
 if (
   !menuCreat ||
@@ -21,7 +24,9 @@ if (
   !titleInput ||
   !addNewTodoBtn ||
   !titleInput ||
-  !plusBtn
+  !plusBtn ||
+  !delitAllBtn ||
+  !closeCreatMenuBtn
 ) {
   throw new Error('html element not found')
 }
@@ -56,6 +61,7 @@ menuCreat.classList.add('hidden')
 
 const hiddenMainMenu = (): void => {
   plusBtn.classList.add('hidden')
+  delitAllBtn.classList.add('hidden')
   listTodo.classList.add('hidden')
   menuCreat.classList.remove('hidden')
 }
@@ -134,6 +140,7 @@ const creatNewToDo = (): void => {
     creatTodoElement(todo)
     titleInput.value = ''
     plusBtn.classList.remove('hidden')
+    delitAllBtn.classList.remove('hidden')
     listTodo.classList.remove('hidden')
     menuCreat.classList.add('hidden')
   } else {
@@ -141,9 +148,22 @@ const creatNewToDo = (): void => {
   }
 }
 
+function delitAll(list: HTMLDivElement): void {
+  todos = []
+  save()
+  list.innerHTML = ''
+}
+
 // event listeners
 
 plusBtn.addEventListener('click', hiddenMainMenu)
+
+closeCreatMenuBtn.addEventListener('click', () => {
+  plusBtn.classList.remove('hidden')
+  delitAllBtn.classList.remove('hidden')
+  listTodo.classList.remove('hidden')
+  menuCreat.classList.add('hidden')
+})
 
 addNewTodoBtn.addEventListener('click', () => {
   creatNewToDo()
@@ -154,4 +174,9 @@ titleInput.addEventListener('keydown', (e) => {
     creatNewToDo()
   }
 })
+
+delitAllBtn.addEventListener('click', () => {
+  delitAll(listTodo)
+})
+
 load()
