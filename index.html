@@ -11,12 +11,13 @@
 <body>
   <h1>Web todolist app</h1>
 
-<button class="add-btn" aria-label="add todo">
-  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
-    <path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" fill="none"/>
+  <button class="add-btn" aria-label="add todo">
+    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" fill="none" />
     </svg>
+  </button>
 
-</button>
+  <button id="delete-all-btn" class="delete-todo-btn">delete all</button>
 
   <div id="todo-list" class="list-todo">
   </div>
@@ -26,6 +27,7 @@
     <label for="todo-input">write your titel</label>
     <input type="text" id="todo-input">
     <button id="add-new-todo-btn">click me to creat new to-do for you</button>
+    <button id="close-create-menu" class="delete-todo-btn">close</button>
   </div>
 
 
