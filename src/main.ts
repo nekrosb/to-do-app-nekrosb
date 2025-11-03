@@ -24,7 +24,6 @@ if (
   !listTodo ||
   !titleInput ||
   !addNewTodoBtn ||
-  !titleInput ||
   !plusBtn ||
   !deleteAllBtn ||
   !closeCreatMenuBtn
@@ -93,6 +92,7 @@ function doneOrNotDone(id: number): void {
 
 function deleteTodo(id: number): void {
   const todo = todos.findIndex((t) => t.id === id)
+  if (todo === -1) return
   todos.splice(todo, 1)
   save()
   const div = listTodo?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
@@ -156,7 +156,7 @@ const creatNewToDo = (): void => {
 function deleteAll(list: HTMLDivElement): void {
   todos = []
   save()
-  list.innerHTML = ''
+  listTodo.innerHTML = ''
 }
 
 // event listeners
