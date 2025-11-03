@@ -156,7 +156,7 @@ const creatNewToDo = (): void => {
 function deleteAll(list: HTMLDivElement): void {
   todos = []
   save()
-  listTodo.innerHTML = ''
+  list.innerHTML = ''
 }
 
 // event listeners
