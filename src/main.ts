@@ -16,7 +16,8 @@ const addNewTodoBtn =
   document.querySelector<HTMLButtonElement>('#add-new-todo-btn')
 const titleInput = document.querySelector<HTMLInputElement>('#todo-input')
 const plusBtn = document.querySelector<HTMLButtonElement>('.add-btn')
-const delitAllBtn = document.querySelector<HTMLButtonElement>('#delit-all-btn')
+const deleteAllBtn =
+  document.querySelector<HTMLButtonElement>('#delete-all-btn')
 
 if (
   !menuCreat ||
@@ -25,7 +26,7 @@ if (
   !addNewTodoBtn ||
   !titleInput ||
   !plusBtn ||
-  !delitAllBtn ||
+  !deleteAllBtn ||
   !closeCreatMenuBtn
 ) {
   throw new Error('html element not found')
@@ -61,9 +62,16 @@ menuCreat.classList.add('hidden')
 
 const hiddenMainMenu = (): void => {
   plusBtn.classList.add('hidden')
-  delitAllBtn.classList.add('hidden')
+  deleteAllBtn.classList.add('hidden')
   listTodo.classList.add('hidden')
   menuCreat.classList.remove('hidden')
+}
+
+const showMainMenu = (): void => {
+  plusBtn.classList.remove('hidden')
+  deleteAllBtn.classList.remove('hidden')
+  listTodo.classList.remove('hidden')
+  menuCreat.classList.add('hidden')
 }
 
 function doneOrNotDone(id: number): void {
@@ -83,7 +91,7 @@ function doneOrNotDone(id: number): void {
   }
 }
 
-function delitTodo(id: number): void {
+function deleteTodo(id: number): void {
   const todo = todos.findIndex((t) => t.id === id)
   todos.splice(todo, 1)
   save()
@@ -105,16 +113,16 @@ function creatTodoElement(todo: TodoData): void {
   doneBtn.textContent = !todo.done ? finishHimText : iEmNotDieText
   doneBtn.classList.add('finish-todo-btn')
 
-  const delitBtn = document.createElement('button')
-  delitBtn.textContent = 'X'
-  delitBtn.classList.add('delit-todo-btn')
+  const deleteBtn = document.createElement('button')
+  deleteBtn.textContent = 'X'
+  deleteBtn.classList.add('delete-todo-btn')
 
   if (todo.done) {
     newDiv.classList.toggle('todo-done')
   }
 
-  delitBtn.addEventListener('click', (): void => {
-    delitTodo(todo.id)
+  deleteBtn.addEventListener('click', (): void => {
+    deleteTodo(todo.id)
   })
 
   doneBtn.addEventListener('click', (): void => {
@@ -123,7 +131,7 @@ function creatTodoElement(todo: TodoData): void {
 
   newDiv.appendChild(p)
   newDiv.appendChild(doneBtn)
-  newDiv.appendChild(delitBtn)
+  newDiv.appendChild(deleteBtn)
   listTodo?.appendChild(newDiv)
 }
 
@@ -139,16 +147,13 @@ const creatNewToDo = (): void => {
     save()
     creatTodoElement(todo)
     titleInput.value = ''
-    plusBtn.classList.remove('hidden')
-    delitAllBtn.classList.remove('hidden')
-    listTodo.classList.remove('hidden')
-    menuCreat.classList.add('hidden')
+    showMainMenu()
   } else {
     alert('you forget sam sings')
   }
 }
 
-function delitAll(list: HTMLDivElement): void {
+function deleteAll(list: HTMLDivElement): void {
   todos = []
   save()
   list.innerHTML = ''
@@ -158,12 +163,7 @@ function delitAll(list: HTMLDivElement): void {
 
 plusBtn.addEventListener('click', hiddenMainMenu)
 
-closeCreatMenuBtn.addEventListener('click', () => {
-  plusBtn.classList.remove('hidden')
-  delitAllBtn.classList.remove('hidden')
-  listTodo.classList.remove('hidden')
-  menuCreat.classList.add('hidden')
-})
+closeCreatMenuBtn.addEventListener('click', showMainMenu)
 
 addNewTodoBtn.addEventListener('click', () => {
   creatNewToDo()
@@ -175,8 +175,8 @@ titleInput.addEventListener('keydown', (e) => {
   }
 })
 
-delitAllBtn.addEventListener('click', () => {
-  delitAll(listTodo)
+deleteAllBtn.addEventListener('click', () => {
+  deleteAll(listTodo)
 })
 
 load()

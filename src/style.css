@@ -72,7 +72,7 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
-.delit-todo-btn {
+.delete-todo-btn {
   background: red;
   border: none;
   color: white;
