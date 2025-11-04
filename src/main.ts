@@ -19,7 +19,8 @@ const plusBtn = document.querySelector<HTMLButtonElement>('.add-btn')
 const deleteAllBtn =
   document.querySelector<HTMLButtonElement>('#delete-all-btn')
 const dateInput = document.querySelector<HTMLInputElement>('#date-input')
-const errorParagraph = document.querySelector<HTMLParagraphElement>('#overdue-message')
+const errorParagraph =
+  document.querySelector<HTMLParagraphElement>('#overdue-message')
 
 if (
   !menuCreat ||
@@ -82,14 +83,11 @@ const errorMsg = (errorMsg: HTMLParagraphElement): void => {
     }
   })
 
-    if (n > 0) {
-      errorMsg.classList.remove('hidden')
-    } else {
-      errorMsg.classList.add('hidden')
-    }
-    
-
-
+  if (n > 0) {
+    errorMsg.classList.remove('hidden')
+  } else {
+    errorMsg.classList.add('hidden')
+  }
 }
 
 menuCreat.classList.add('hidden')
@@ -260,7 +258,7 @@ const creatNewToDo = (
     id: Date.now(),
     title: titleInput.value,
     done: false,
-    date: "2024-12-31",
+    date: '2024-12-31',
   }
   const dateValue = dateInput.value
 
