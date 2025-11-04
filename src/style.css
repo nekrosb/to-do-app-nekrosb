@@ -1,8 +1,32 @@
 html,
 body {
+  height: 100%;
   background-color: darkcyan;
   padding: 0;
   margin: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 70px;
+  background-color: darkblue;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  flex-wrap: wrap;
+  margin: 0px 0px 30px 0px;
+}
+
+.error-message {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  width: 50vw;
 }
 
 .list-todo {
@@ -77,6 +101,7 @@ body {
   border: none;
   color: white;
   padding: 5px 10px;
+  margin: 0 5px;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -100,8 +125,40 @@ body {
   background: red;
   color: pink;
   border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
 .hidden {
   display: none;
+}
+
+#date-input {
+  width: 40vw;
+  background-color: white;
+}
+
+.luse-date {
+  background-color: red;
+  font-weight: bold;
+}
+
+.today-date {
+  background-color: orange;
+  font-weight: bold;
+}
+
+.close-date {
+  background-color: yellow;
+  font-weight: bold;
+}
+
+.normal-date {
+  background-color: green;
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: none;
+  padding: 10px;
 }
