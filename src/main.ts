@@ -19,8 +19,7 @@ const plusBtn = document.querySelector<HTMLButtonElement>('.add-btn')
 const deleteAllBtn =
   document.querySelector<HTMLButtonElement>('#delete-all-btn')
 const dateInput = document.querySelector<HTMLInputElement>('#date-input')
-const errorParagraph =
-  document.querySelector<HTMLParagraphElement>('#overdue-message')
+const errorParagraph = document.querySelector<HTMLParagraphElement>('#overdue-message')
 
 if (
   !menuCreat ||
@@ -67,6 +66,7 @@ function save(): void {
 // main logic
 errorParagraph.classList.add('hidden')
 const errorMsg = (errorMsg: HTMLParagraphElement): void => {
+  let n = 0
   todos.forEach((todo): void => {
     if (!todo.date) return
     const selectedDate = new Date(todo.date)
@@ -78,11 +78,18 @@ const errorMsg = (errorMsg: HTMLParagraphElement): void => {
       (selectedDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
     )
     if (difdays < 0 && todo.done === false) {
+      n += 1
+    }
+  })
+
+    if (n > 0) {
       errorMsg.classList.remove('hidden')
     } else {
       errorMsg.classList.add('hidden')
     }
-  })
+    
+
+
 }
 
 menuCreat.classList.add('hidden')
@@ -213,7 +220,6 @@ function creatTodoElement(
 
   deleteBtn.addEventListener('click', (): void => {
     deleteTodo(todo.id, listTodo, todos)
-    window.location.reload()
     errorMsg(errorParagraph)
   })
 
@@ -254,7 +260,7 @@ const creatNewToDo = (
     id: Date.now(),
     title: titleInput.value,
     done: false,
-    date: dateInput.value,
+    date: "2024-12-31",
   }
   const dateValue = dateInput.value
 
