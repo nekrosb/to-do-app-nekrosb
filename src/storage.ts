@@ -1,5 +1,5 @@
-import type { TodoData } from './types'
 import { creatTodoElement } from './createing-todo'
+import type { TodoData } from './types'
 
 export let todos: TodoData[] = []
 
@@ -19,4 +19,3 @@ export function load(
 export function save(): void {
   localStorage.setItem('todos', JSON.stringify(todos))
 }
-

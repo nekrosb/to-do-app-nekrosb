@@ -1,9 +1,9 @@
 import './style.css'
-import { load, save, todos } from './storage'
 import { creatNewToDo } from './createing-todo'
+import { load, save, todos } from './storage'
 import type { TodoData } from './types'
 
-console.log('Hello from typescript')// litel constants
+console.log('Hello from typescript') // litel constants
 
 export const finishHimText = 'FINISH HIM'
 export const iEmNotDieText = 'I EM NOT DIE?'
@@ -36,11 +36,6 @@ if (
 ) {
   throw new Error('html element not found')
 }
-
-
-
-
-
 
 // main logic
 errorParagraph.classList.add('hidden')
@@ -118,7 +113,7 @@ addNewTodoBtn.addEventListener('click', () => {
     titleInput,
     dateInput,
     errorParagraph,
-    menuCreat
+    menuCreat,
   )
 })
 
@@ -132,7 +127,7 @@ titleInput.addEventListener('keydown', (e) => {
       titleInput,
       dateInput,
       errorParagraph,
-      menuCreat
+      menuCreat,
     )
   }
 })

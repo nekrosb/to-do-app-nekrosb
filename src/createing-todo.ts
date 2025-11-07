@@ -1,7 +1,11 @@
-import { finishHimText, iEmNotDieText, errorMsg, hiddenCreateMenu } from './main'
-import type { TodoData } from './types'
+import {
+  errorMsg,
+  finishHimText,
+  hiddenCreateMenu,
+  iEmNotDieText,
+} from './main'
 import { save } from './storage'
-
+import type { TodoData } from './types'
 
 function doneOrNotDone(
   id: number,
@@ -141,7 +145,7 @@ export const creatNewToDo = (
   titleInput: HTMLInputElement,
   dateInput: HTMLInputElement,
   errorParagraph: HTMLParagraphElement,
-  menuCreat: HTMLDivElement
+  menuCreat: HTMLDivElement,
 ): void => {
   const todo: TodoData = {
     id: Date.now(),
@@ -174,4 +178,3 @@ export const creatNewToDo = (
     alert('you forget sam sings')
   }
 }
-
