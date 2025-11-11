@@ -1,9 +1,9 @@
 import './style.css'
-import { showCreateMenu, hiddenCreateMenu } from './menus'
-import { creatNewToDo, creatTodoElement } from './createing-todo'
-import { load, save, todos } from './storage'
+import { deleteAllApiTodos } from './api'
+import { creatNewToDo } from './createing-todo'
+import { hiddenCreateMenu, showCreateMenu } from './menus'
+import { load, todos } from './storage'
 import type { TodoData } from './types'
-import { fetchTodos, deleteAllApiTodos } from './api'
 
 console.log('Hello from typescript') // litel constants
 
@@ -49,8 +49,7 @@ function deleteAll(list: HTMLDivElement, TodosList: TodoData[]): void {
   list.innerHTML = ''
 }
 
-imgLoad.classList.add("hidden")
-
+imgLoad.classList.add('hidden')
 
 // event listeners
 
@@ -63,7 +62,7 @@ closeCreatMenuBtn.addEventListener('click', () => {
 })
 
 addNewTodoBtn.addEventListener('click', () => {
-  console.log("add new todo button clicked");
+  console.log('add new todo button clicked')
   creatNewToDo(
     listTodo,
     plusBtn,
@@ -79,8 +78,8 @@ addNewTodoBtn.addEventListener('click', () => {
 
 titleInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-    console.log("enter key");
-    
+    console.log('enter key')
+
     creatNewToDo(
       listTodo,
       plusBtn,
@@ -100,4 +99,3 @@ deleteAllBtn.addEventListener('click', () => {
 })
 
 load(listTodo, errorParagraph, imgLoad)
-

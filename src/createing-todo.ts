@@ -1,9 +1,9 @@
-import {errorMsg} from './errors'
+import { deleteTodoFromAPI, postTodo, updateTodoInAPI } from './api'
+import { errorMsg } from './errors'
 import { hiddenCreateMenu } from './menus'
+
 import { finishHimText, iEmNotDieText } from './texts'
-import { save } from './storage'
 import type { contentTodoData, TodoData } from './types'
-import { postTodo, updateTodoInAPI, deleteTodoFromAPI } from './api'
 
 async function doneOrNotDone(
   id: number,
@@ -13,11 +13,11 @@ async function doneOrNotDone(
   const todo = todos.find((t) => t.id === id)
   if (!todo) return
   todo.done = !todo.done
-  console.log('nikit');
-  
-  console.log(todo.id);
-  
-await updateTodoInAPI(todo)
+  console.log('nikit')
+
+  console.log(todo.id)
+
+  await updateTodoInAPI(todo)
 
   const div = listTodo?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
 
@@ -39,8 +39,7 @@ function deleteTodo(
   if (todo === -1) return
   deleteTodoFromAPI(id)
   todos.splice(todo, 1)
-  
-  
+
   const div = listTodo?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
   if (div) {
     div.remove()
@@ -90,7 +89,7 @@ export function creatTodoElement(
   p.textContent = todo.title
 
   const pContent = document.createElement('p') as HTMLParagraphElement
-    pContent.textContent = todo.content ? todo.content : ''
+  pContent.textContent = todo.content ? todo.content : ''
 
   const doneBtn = document.createElement('button')
   doneBtn.textContent = !todo.done ? finishHimText : iEmNotDieText
@@ -127,7 +126,6 @@ export function creatTodoElement(
 
   const liTitel = document.createElement('li')
   liTitel.appendChild(p)
-
 
   const liDate = document.createElement('li')
   liDate.appendChild(dateP)
@@ -181,7 +179,7 @@ export async function creatNewToDo(
   if (todo.title !== '') {
     const t = await postTodo(todo)
     todos.push(t)
-    
+
     creatTodoElement(t, listTodo, todos, errorParagraph)
     titleInput.value = ''
     hiddenCreateMenu(plusBtn, deleteAllBtn, listTodo, menuCreat)

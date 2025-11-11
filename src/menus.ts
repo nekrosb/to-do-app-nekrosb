@@ -10,7 +10,6 @@ export const hiddenCreateMenu = (
   menuCreat.classList.add('hidden')
 }
 
-
 export const showCreateMenu = (
   plusBtn: HTMLButtonElement,
   deleteAllBtn: HTMLButtonElement,
@@ -22,5 +21,3 @@ export const showCreateMenu = (
   listTodo.classList.add('hidden')
   menuCreat.classList.remove('hidden')
 }
-
-

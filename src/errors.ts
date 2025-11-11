@@ -23,4 +23,3 @@ export const errorMsg = (errorMsg: HTMLParagraphElement): void => {
     errorMsg.classList.add('hidden')
   }
 }
-
