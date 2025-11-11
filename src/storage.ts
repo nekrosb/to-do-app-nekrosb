@@ -18,9 +18,7 @@ export async function load(
       todos.push(t)
       creatTodoElement(t, listTodo, todos, error)
     })
-  } catch (e) {
-    
-
+  } catch {
   } finally {
     img.classList.add('hidden')
   }

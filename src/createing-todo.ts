@@ -13,7 +13,6 @@ async function doneOrNotDone(
   const todo = todos.find((t) => t.id === id)
   if (!todo) return
   todo.done = !todo.done
-  
 
   await updateTodoInAPI(todo)
 
