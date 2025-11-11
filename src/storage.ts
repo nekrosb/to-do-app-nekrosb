@@ -19,8 +19,8 @@ export async function load(
       creatTodoElement(t, listTodo, todos, error)
     })
   } catch (e) {
-    console.log('clear', e)
-    img.classList.add('hidden')
+    
+
   } finally {
     img.classList.add('hidden')
   }

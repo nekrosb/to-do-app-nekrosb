@@ -62,7 +62,7 @@ closeCreatMenuBtn.addEventListener('click', () => {
 })
 
 addNewTodoBtn.addEventListener('click', () => {
-  console.log('add new todo button clicked')
+  
   creatNewToDo(
     listTodo,
     plusBtn,
@@ -78,7 +78,7 @@ addNewTodoBtn.addEventListener('click', () => {
 
 titleInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-    console.log('enter key')
+    
 
     creatNewToDo(
       listTodo,

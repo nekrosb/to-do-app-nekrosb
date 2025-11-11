@@ -24,7 +24,7 @@ export async function postTodo(todo: contentTodoData): Promise<TodoData> {
   }
 
   const t = await response.json()
-  console.log(t)
+  
 
   return t[0]
 }
@@ -49,7 +49,7 @@ export async function updateTodoInAPI(todo: TodoData): Promise<void> {
     }),
   })
   if (!response.ok) {
-    console.log(response.status)
+    
 
     throw new Error('Failed to update todo in API')
   }

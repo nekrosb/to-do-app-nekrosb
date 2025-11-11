@@ -13,9 +13,7 @@ async function doneOrNotDone(
   const todo = todos.find((t) => t.id === id)
   if (!todo) return
   todo.done = !todo.done
-  console.log('nikit')
-
-  console.log(todo.id)
+  
 
   await updateTodoInAPI(todo)
 
@@ -182,6 +180,8 @@ export async function creatNewToDo(
 
     creatTodoElement(t, listTodo, todos, errorParagraph)
     titleInput.value = ''
+    contentInput.value = ''
+    dateInput.value = ''
     hiddenCreateMenu(plusBtn, deleteAllBtn, listTodo, menuCreat)
   } else {
     alert('you forget sam sings')
