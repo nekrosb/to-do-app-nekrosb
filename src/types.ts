@@ -1,6 +1,14 @@
 export interface TodoData {
   id: number
   title: string
+  content?: string
+  due_date?: string
   done: boolean
-  date?: string
+}
+
+export interface contentTodoData {
+  title: string
+  content?: string
+  due_date?: string
+  done: boolean
 }

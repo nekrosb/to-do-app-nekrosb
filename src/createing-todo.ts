@@ -1,21 +1,20 @@
-import {
-  errorMsg,
-  finishHimText,
-  hiddenCreateMenu,
-  iEmNotDieText,
-} from './main'
-import { save } from './storage'
-import type { TodoData } from './types'
+import { deleteTodoFromAPI, postTodo, updateTodoInAPI } from './api'
+import { errorMsg } from './errors'
+import { hiddenCreateMenu } from './menus'
 
-function doneOrNotDone(
+import { finishHimText, iEmNotDieText } from './texts'
+import type { contentTodoData, TodoData } from './types'
+
+async function doneOrNotDone(
   id: number,
   todos: TodoData[],
   listTodo: HTMLDivElement,
-): void {
+): Promise<void> {
   const todo = todos.find((t) => t.id === id)
   if (!todo) return
   todo.done = !todo.done
-  save()
+
+  await updateTodoInAPI(todo)
 
   const div = listTodo?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
 
@@ -35,8 +34,9 @@ function deleteTodo(
 ): void {
   const todo = todos.findIndex((t) => t.id === id)
   if (todo === -1) return
+  deleteTodoFromAPI(id)
   todos.splice(todo, 1)
-  save()
+
   const div = listTodo?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
   if (div) {
     div.remove()
@@ -85,6 +85,9 @@ export function creatTodoElement(
   const p = document.createElement('p') as HTMLParagraphElement
   p.textContent = todo.title
 
+  const pContent = document.createElement('p') as HTMLParagraphElement
+  pContent.textContent = todo.content ? todo.content : ''
+
   const doneBtn = document.createElement('button')
   doneBtn.textContent = !todo.done ? finishHimText : iEmNotDieText
   doneBtn.classList.add('finish-todo-btn')
@@ -95,9 +98,9 @@ export function creatTodoElement(
 
   const dateP = document.createElement('p')
 
-  if (todo.date) {
-    dateP.innerHTML = `Due <time datetime="${todo.date}">${todo.date}</time>`
-    dateP.classList.add(colorOfDate(todo.date))
+  if (todo.due_date) {
+    dateP.innerHTML = `Due <time datetime="${todo.due_date}">${todo.due_date}</time>`
+    dateP.classList.add(colorOfDate(todo.due_date))
   } else {
     dateP.textContent = 'No due date'
   }
@@ -128,6 +131,7 @@ export function creatTodoElement(
   liButtons.appendChild(doneBtn)
   liButtons.append(deleteBtn)
   ul.appendChild(liTitel)
+  ul.appendChild(pContent)
   ul.appendChild(liDate)
   ul.appendChild(liButtons)
   newDiv.appendChild(ul)
@@ -137,7 +141,7 @@ export function creatTodoElement(
   listTodo?.appendChild(newDiv)
 }
 
-export const creatNewToDo = (
+export async function creatNewToDo(
   listTodo: HTMLDivElement,
   plusBtn: HTMLButtonElement,
   deleteAllBtn: HTMLButtonElement,
@@ -146,12 +150,13 @@ export const creatNewToDo = (
   dateInput: HTMLInputElement,
   errorParagraph: HTMLParagraphElement,
   menuCreat: HTMLDivElement,
-): void => {
-  const todo: TodoData = {
-    id: Date.now(),
+  contentInput: HTMLInputElement,
+): Promise<void> {
+  const todo: contentTodoData = {
     title: titleInput.value,
+    content: contentInput.value,
+    due_date: dateInput.value ? dateInput.value : undefined,
     done: false,
-    date: dateInput.value ? dateInput.value : undefined,
   }
   const dateValue = dateInput.value
 
@@ -169,10 +174,13 @@ export const creatNewToDo = (
   }
 
   if (todo.title !== '') {
-    todos.push(todo)
-    save()
-    creatTodoElement(todo, listTodo, todos, errorParagraph)
+    const t = await postTodo(todo)
+    todos.push(t)
+
+    creatTodoElement(t, listTodo, todos, errorParagraph)
     titleInput.value = ''
+    contentInput.value = ''
+    dateInput.value = ''
     hiddenCreateMenu(plusBtn, deleteAllBtn, listTodo, menuCreat)
   } else {
     alert('you forget sam sings')

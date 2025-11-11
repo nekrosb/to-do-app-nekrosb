@@ -55,7 +55,7 @@ header {
   background-image: linear-gradient(to right, darkblue, deepskyblue);
 }
 
-#todo-input {
+input {
   width: 40vw;
   background-color: white;
 }

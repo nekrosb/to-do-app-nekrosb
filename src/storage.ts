@@ -1,21 +1,25 @@
+import { fetchTodos } from './api'
 import { creatTodoElement } from './createing-todo'
 import type { TodoData } from './types'
 
-export let todos: TodoData[] = []
+export const todos: TodoData[] = []
 
-export function load(
+export async function load(
   listTodo: HTMLDivElement,
-  errorParagraph: HTMLParagraphElement,
-): void {
-  const saved = localStorage.getItem('todos')
-  if (saved) {
-    todos = JSON.parse(saved) as TodoData[]
-    todos.forEach((todo): void => {
-      creatTodoElement(todo, listTodo, todos, errorParagraph)
+  error: HTMLParagraphElement,
+  img: HTMLImageElement,
+) {
+  img.classList.remove('hidden')
+  try {
+    const todo = await fetchTodos()
+    todos.length = 0
+    listTodo.innerHTML = ''
+    todo.forEach((t) => {
+      todos.push(t)
+      creatTodoElement(t, listTodo, todos, error)
     })
+  } catch {
+  } finally {
+    img.classList.add('hidden')
   }
-}
-
-export function save(): void {
-  localStorage.setItem('todos', JSON.stringify(todos))
 }
