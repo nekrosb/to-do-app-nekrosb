@@ -13,20 +13,32 @@
     
   <h1>Web todolist app</h1>
 
-  <button class="add-btn" aria-label="add todo">
+  <button class="add-btn" id="todo-add" aria-label="add todo">
     <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
       <path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" fill="none" />
     </svg>
   </button>
 
+<button id="category-btn">category</button>
+
+<button id="close-category-list" class="delete-todo-btn" aria-label="close category list">X</button>
+
   <button id="delete-all-btn" class="delete-todo-btn">delete all</button>
   <p id="overdue-message" class="error-message">you forgot to finish your task</p>
+
+  <button class="add-btn" id="category-add" aria-label="add todo">
+    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" fill="none" />
+    </svg>
+  </button>
+
+
 
   </header>
 
 <img id="img-load" src="src/images.jpg" alt="load">
 
-  <div id="todo-list" class="list-todo">
+  <div id="todo-list" class="list">
   </div>
 
 
@@ -44,6 +56,31 @@
     <button id="close-create-menu" class="delete-todo-btn">close</button>
   </div>
 
+<div id="category-menu" class="creat-new-todo">
+  <label for="name-category">write category name</label>
+  <input type="text" id="name-category" placeholder="write category name">
+
+  <label for="color-category">choose category color</label>
+  <input type="color" id="color-category">
+
+  <button id="add-new-category-btn">add category</button>
+  <button id="close-category-menu" class="delete-todo-btn">close</button>
+</div>
+
+<div id="list-category" class="list">
+
+</div>
+
+
+<div id="chenge-category" class="creat-new-todo">
+  <label for="new-name-category">write category name</label>
+  <input type="text" id="new-name-category" placeholder="write category name">
+
+  <label for="new-color-category">choose category color</label>
+  <input type="color" id="new-color-category">
+
+  <button id="updait-category-btn">add category</button>
+</div>
 
 
 
@@ -51,5 +88,4 @@
 
   <script type="module" src="/src/main.ts"></script>
 </body>
-
 </html>
