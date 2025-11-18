@@ -124,7 +124,7 @@ export function createCategoryElement(
       closeCategoryListBtn,
       chengeCategory,
     )
-    updaitCategoryBtn.onclick = () => {
+    updaitCategoryBtn.addEventListener('click', () => {
       updaitCategory(
         category.id,
         listCategory,
@@ -135,7 +135,7 @@ export function createCategoryElement(
         closeCategoryListBtn,
         categories,
       )
-    }
+    })
   })
 }
 

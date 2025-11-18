@@ -103,7 +103,7 @@ export async function postCategory(
 
 export async function deleteCategoryFromAPI(id: number): Promise<void> {
   try {
-    fetch(`${api_categories_url}?id=eq.${id}`, {
+    await fetch(`${api_categories_url}?id=eq.${id}`, {
       method: 'DELETE',
     })
   } catch (error) {
