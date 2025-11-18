@@ -12,3 +12,14 @@ export interface contentTodoData {
   due_date?: string
   done: boolean
 }
+
+export interface CategoryData {
+  id: number
+  title: string
+  color: string
+}
+
+export interface contentCategoryData {
+  title: string
+  color: string
+}

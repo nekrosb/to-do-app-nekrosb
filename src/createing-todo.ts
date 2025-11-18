@@ -151,6 +151,7 @@ export async function creatNewToDo(
   errorParagraph: HTMLParagraphElement,
   menuCreat: HTMLDivElement,
   contentInput: HTMLInputElement,
+  categoryBtn: HTMLButtonElement,
 ): Promise<void> {
   const todo: contentTodoData = {
     title: titleInput.value,
@@ -181,7 +182,7 @@ export async function creatNewToDo(
     titleInput.value = ''
     contentInput.value = ''
     dateInput.value = ''
-    hiddenCreateMenu(plusBtn, deleteAllBtn, listTodo, menuCreat)
+    hiddenCreateMenu(plusBtn, deleteAllBtn, listTodo, menuCreat, categoryBtn)
   } else {
     alert('you forget sam sings')
   }

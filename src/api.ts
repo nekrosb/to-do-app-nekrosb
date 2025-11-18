@@ -1,6 +1,14 @@
-import type { contentTodoData, TodoData } from './types'
+import type {
+  CategoryData,
+  contentCategoryData,
+  contentTodoData,
+  TodoData,
+} from './types'
 
 const API_URL = 'https://api.todos.in.jt-lab.ch/todos'
+const api_categories_url = 'https://api.todos.in.jt-lab.ch/categories'
+
+// work with todos
 
 export async function fetchTodos(): Promise<TodoData[]> {
   const response = await fetch(API_URL)
@@ -58,5 +66,68 @@ export async function deleteAllApiTodos(): Promise<void> {
   })
   if (!response.ok) {
     throw new Error('Failed to delete all todos from API')
+  }
+}
+
+// work with categories
+
+export async function fetchCategories(): Promise<CategoryData[]> {
+  try {
+    const response = await fetch(api_categories_url)
+    return response.json()
+  } catch (error) {
+    alert('you have problem with internet connection')
+    throw new Error(`Failed to fetch categories from API ${error}`)
+  }
+}
+
+export async function postCategory(
+  category: contentCategoryData,
+): Promise<CategoryData> {
+  try {
+    const response = await fetch(api_categories_url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Prefer: 'return=representation',
+      },
+      body: JSON.stringify(category),
+    })
+    const newCategory = await response.json()
+    return newCategory[0]
+  } catch (error) {
+    alert('you have problem with internet connection')
+    throw new Error(`Failed to post category to API ${error}`)
+  }
+}
+
+export async function deleteCategoryFromAPI(id: number): Promise<void> {
+  try {
+    await fetch(`${api_categories_url}?id=eq.${id}`, {
+      method: 'DELETE',
+    })
+  } catch (error) {
+    alert('you have problem with internet connection')
+    throw new Error(`Failed to delete category from API ${error}`)
+  }
+}
+
+export async function updateCategoryInAPI(
+  category: CategoryData,
+): Promise<void> {
+  try {
+    await fetch(`${api_categories_url}?id=eq.${category.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: category.title,
+        color: category.color,
+      }),
+    })
+  } catch (error) {
+    alert('you have problem with internet connection')
+    throw new Error(`Failed to update category in API ${error}`)
   }
 }
