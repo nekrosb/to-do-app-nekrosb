@@ -70,7 +70,7 @@ function deleteCategory(
   listCategory: HTMLDivElement,
   categories: CategoryData[],
   selecterCategoryForTodo: HTMLSelectElement,
-  listTodo: HTMLDivElement
+  listTodo: HTMLDivElement,
 ): void {
   const category = categories.findIndex((t) => t.id === id)
   if (category === -1) return
@@ -81,7 +81,9 @@ function deleteCategory(
     const ct = categoryTodos.findIndex((p) => p.category_id === id)
     if (ct === -1) break
 
-    const todoDiv = listTodo.querySelector<HTMLDivElement>(`[data-id='${categoryTodos[ct].todo_id}']`)
+    const todoDiv = listTodo.querySelector<HTMLDivElement>(
+      `[data-id='${categoryTodos[ct].todo_id}']`,
+    )
     if (todoDiv) {
       todoDiv.style.borderColor = 'gray'
     }
@@ -99,7 +101,6 @@ function deleteCategory(
     div.remove()
     option.remove()
   }
-  
 }
 
 export function createCategoryElement(
@@ -113,7 +114,7 @@ export function createCategoryElement(
   closeCategoryListBtn: HTMLButtonElement,
   updaitCategoryBtn: HTMLButtonElement,
   selecterCategoryForTodo: HTMLSelectElement,
-  listTodo: HTMLDivElement
+  listTodo: HTMLDivElement,
 ): void {
   const categoryDiv = document.createElement('div')
   categoryDiv.classList.add('category-element')
@@ -160,7 +161,7 @@ export function createCategoryElement(
       listCategory,
       categories,
       selecterCategoryForTodo,
-      listTodo
+      listTodo,
     )
   })
 
@@ -200,7 +201,7 @@ export async function createNewCategory(
   newCalorCategory: HTMLInputElement,
   chengeCategory: HTMLDivElement,
   selecterCategoryForTodo: HTMLSelectElement,
-  listTodo: HTMLDivElement
+  listTodo: HTMLDivElement,
 ): Promise<void> {
   const contentCategory: contentCategoryData = {
     title: titleInput.value,
@@ -221,7 +222,7 @@ export async function createNewCategory(
       closeCategoryListBtn,
       updaitCategoryBtn,
       selecterCategoryForTodo,
-      listTodo
+      listTodo,
     )
     titleInput.value = ''
     color.value = '#000000'
