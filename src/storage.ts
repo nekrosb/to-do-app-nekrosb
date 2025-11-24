@@ -1,6 +1,6 @@
 import { fetchCategories, fetchCategoryTodo, fetchTodos } from './api'
-import { createCategoryElement } from './createing-categories'
-import { creatTodoElement } from './createing-todo'
+import { createCategoryElement } from './creating-categories'
+import { createTodoElement } from './creating-todo'
 import type { CategoryData, categoryTodo, TodoData } from './types'
 
 export const todos: TodoData[] = []
@@ -10,19 +10,19 @@ export const categoryTodos: categoryTodo[] = []
 export async function load(
   listTodo: HTMLDivElement,
   error: HTMLParagraphElement,
-  amg: HTMLImageElement,
+  img: HTMLImageElement,
   listCategory: HTMLDivElement,
   addCategoryBtn: HTMLButtonElement,
   closeCategoryListBtn: HTMLButtonElement,
-  updaitCategoryBtn: HTMLButtonElement,
+  updateCategoryBtn: HTMLButtonElement,
   newNameCategory: HTMLInputElement,
-  newCalorCategory: HTMLInputElement,
-  chengeCategory: HTMLDivElement,
-  selecterCategoryForTodo: HTMLSelectElement,
+  newColorCategory: HTMLInputElement,
+  changeCategory: HTMLDivElement,
+  selectorCategoryForTodo: HTMLSelectElement,
   filter: HTMLSelectElement
 ): Promise<void> {
-  if (amg) {
-    amg.classList.remove('hidden')
+  if (img) {
+    img.classList.remove('hidden')
   }
   try {
     const category = await fetchCategories()
@@ -34,13 +34,13 @@ export async function load(
         listCategory,
         c,
         categories,
-        chengeCategory,
+        changeCategory,
         newNameCategory,
-        newCalorCategory,
+        newColorCategory,
         addCategoryBtn,
         closeCategoryListBtn,
-        updaitCategoryBtn,
-        selecterCategoryForTodo,
+        updateCategoryBtn,
+        selectorCategoryForTodo,
         listTodo,
         filter
       )
@@ -58,7 +58,7 @@ export async function load(
     todo.forEach((t) => {
       todos.push(t)
       const idCategory = categoryTodos.find((ct) => ct.todo_id === t.id)
-      creatTodoElement(
+      createTodoElement(
         t,
         listTodo,
         todos,
@@ -70,6 +70,6 @@ export async function load(
   } catch {
     throw new Error('Failed to load todos and categories')
   } finally {
-    amg.classList.add('hidden')
+    img.classList.add('hidden')
   }
 }

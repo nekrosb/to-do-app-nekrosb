@@ -2,13 +2,13 @@ export const hiddenCreateMenu = (
   plusBtn: HTMLButtonElement,
   deleteAllBtn: HTMLButtonElement,
   listTodo: HTMLDivElement,
-  menuCreat: HTMLDivElement,
+  menuCreate: HTMLDivElement,
   categoryBtn: HTMLButtonElement,
 ): void => {
   plusBtn.classList.remove('hidden')
   deleteAllBtn.classList.remove('hidden')
   listTodo.classList.remove('hidden')
-  menuCreat.classList.add('hidden')
+  menuCreate.classList.add('hidden')
   categoryBtn.classList.remove('hidden')
 }
 
@@ -16,14 +16,14 @@ export const showCreateMenu = (
   plusBtn: HTMLButtonElement,
   deleteAllBtn: HTMLButtonElement,
   listTodo: HTMLDivElement,
-  menuCreat: HTMLDivElement,
+  menuCreate: HTMLDivElement,
   categoryBtn: HTMLButtonElement,
 ): void => {
   plusBtn.classList.add('hidden')
   deleteAllBtn.classList.add('hidden')
   listTodo.classList.add('hidden')
   categoryBtn.classList.add('hidden')
-  menuCreat.classList.remove('hidden')
+  menuCreate.classList.remove('hidden')
 }
 
 export function showCategory(

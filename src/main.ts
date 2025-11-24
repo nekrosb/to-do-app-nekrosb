@@ -1,7 +1,7 @@
 import './style.css'
 import { deleteAllApiTodos, deleteAllCategoryTodos } from './api'
-import { createNewCategory } from './createing-categories'
-import { creatNewToDo } from './createing-todo'
+import { createNewCategory } from './creating-categories'
+import { createNewTodo } from './creating-todo'
 import {
   hiddenCategoryCreateMenu,
   hiddenCreateMenu,
@@ -13,13 +13,13 @@ import {
 import { categories, categoryTodos, load, todos } from './storage'
 import type { TodoData } from './types'
 
-console.log('Hello from typescript') // litel constants
+console.log('Hello from TypeScript') // little constants
 
 // taking all dom in ts
 const imgLoad = document.querySelector<HTMLImageElement>('#img-load')
 const listTodo = document.querySelector<HTMLDivElement>('#todo-list')
-const menuCreat = document.querySelector<HTMLDivElement>('#creat-todo')
-const closeCreatMenuBtn =
+const menuCreate = document.querySelector<HTMLDivElement>('#creat-todo')
+const closeCreateMenuBtn =
   document.querySelector<HTMLButtonElement>('#close-create-menu')
 const addNewTodoBtn =
   document.querySelector<HTMLButtonElement>('#add-new-todo-btn')
@@ -47,28 +47,28 @@ const addNewCategoryBtn = document.querySelector<HTMLButtonElement>(
 )
 const colorInput = document.querySelector<HTMLInputElement>('#color-category')
 const titleCategory = document.querySelector<HTMLInputElement>('#name-category')
-const chengeCategory =
+const changeCategory =
   document.querySelector<HTMLDivElement>('#chenge-category')
 const newNameCategory =
   document.querySelector<HTMLInputElement>('#new-name-category')
-const newCalorCategory = document.querySelector<HTMLInputElement>(
+const newColorCategory = document.querySelector<HTMLInputElement>(
   '#new-color-category',
 )
-const updaitCategoryBtn = document.querySelector<HTMLButtonElement>(
-  '#updait-category-btn',
+const updateCategoryBtn = document.querySelector<HTMLButtonElement>(
+  '#update-category-btn',
 )
-const selecterCategoryForTodo =
+const selectorCategoryForTodo =
   document.querySelector<HTMLSelectElement>('#select-category')
   const filter = document.querySelector<HTMLSelectElement>("#filter")
 
 if (
-  !menuCreat ||
+  !menuCreate ||
   !listTodo ||
   !titleInput ||
   !addNewTodoBtn ||
   !plusBtn ||
   !deleteAllBtn ||
-  !closeCreatMenuBtn ||
+  !closeCreateMenuBtn ||
   !dateInput ||
   !errorParagraph ||
   !contentInput ||
@@ -82,21 +82,21 @@ if (
   !addNewCategoryBtn ||
   !colorInput ||
   !titleCategory ||
-  !chengeCategory ||
+  !changeCategory ||
   !newNameCategory ||
-  !newCalorCategory ||
-  !updaitCategoryBtn ||
-  !selecterCategoryForTodo ||
+  !newColorCategory ||
+  !updateCategoryBtn ||
+  !selectorCategoryForTodo ||
   !filter
 ) {
   throw new Error('html element not found')
 }
 
 // main logic
-chengeCategory.classList.add('hidden')
+changeCategory.classList.add('hidden')
 errorParagraph.classList.add('hidden')
 
-menuCreat.classList.add('hidden')
+menuCreate.classList.add('hidden')
 listCategory.classList.add('hidden')
 categoryMenu.classList.add('hidden')
 addCategoryBtn.classList.add('hidden')
@@ -153,11 +153,11 @@ addNewCategoryBtn.addEventListener('click', () => {
     addCategoryBtn,
     closeCategoryListBtn,
     categoryMenu,
-    updaitCategoryBtn,
+    updateCategoryBtn,
     newNameCategory,
-    newCalorCategory,
-    chengeCategory,
-    selecterCategoryForTodo,
+    newColorCategory,
+    changeCategory,
+    selectorCategoryForTodo,
     listTodo,
     filter
   )
@@ -173,11 +173,11 @@ titleCategory.addEventListener('keydown', (e) => {
       addCategoryBtn,
       closeCategoryListBtn,
       categoryMenu,
-      updaitCategoryBtn,
+      updateCategoryBtn,
       newNameCategory,
-      newCalorCategory,
-      chengeCategory,
-      selecterCategoryForTodo,
+      newColorCategory,
+      changeCategory,
+      selectorCategoryForTodo,
       listTodo,
       filter
     )
@@ -197,15 +197,15 @@ closeCategoryListBtn.addEventListener('click', () => {
 })
 
 plusBtn.addEventListener('click', () => {
-  showCreateMenu(plusBtn, deleteAllBtn, listTodo, menuCreat, categoryBtn)
+  showCreateMenu(plusBtn, deleteAllBtn, listTodo, menuCreate, categoryBtn)
 })
 
-closeCreatMenuBtn.addEventListener('click', () => {
-  hiddenCreateMenu(plusBtn, deleteAllBtn, listTodo, menuCreat, categoryBtn)
+closeCreateMenuBtn.addEventListener('click', () => {
+  hiddenCreateMenu(plusBtn, deleteAllBtn, listTodo, menuCreate, categoryBtn)
 })
 
 addNewTodoBtn.addEventListener('click', () => {
-  creatNewToDo(
+  createNewTodo(
     listTodo,
     plusBtn,
     deleteAllBtn,
@@ -213,10 +213,10 @@ addNewTodoBtn.addEventListener('click', () => {
     titleInput,
     dateInput,
     errorParagraph,
-    menuCreat,
+    menuCreate,
     contentInput,
     categoryBtn,
-    selecterCategoryForTodo,
+    selectorCategoryForTodo,
     categoryTodos,
     categories,
   )
@@ -224,7 +224,7 @@ addNewTodoBtn.addEventListener('click', () => {
 
 titleInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-    creatNewToDo(
+    createNewTodo(
       listTodo,
       plusBtn,
       deleteAllBtn,
@@ -232,10 +232,10 @@ titleInput.addEventListener('keydown', (e) => {
       titleInput,
       dateInput,
       errorParagraph,
-      menuCreat,
+      menuCreate,
       contentInput,
       categoryBtn,
-      selecterCategoryForTodo,
+      selectorCategoryForTodo,
       categoryTodos,
       categories,
     )
@@ -253,10 +253,10 @@ load(
   listCategory,
   addCategoryBtn,
   closeCategoryListBtn,
-  updaitCategoryBtn,
+  updateCategoryBtn,
   newNameCategory,
-  newCalorCategory,
-  chengeCategory,
-  selecterCategoryForTodo,
+  newColorCategory,
+  changeCategory,
+  selectorCategoryForTodo,
   filter
 )

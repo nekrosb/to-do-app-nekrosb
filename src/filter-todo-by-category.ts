@@ -12,7 +12,7 @@ if (categoryId === "0" || categoryId === "") {
 const todoInCategory = categoryTodos.filter(ct => ct.category_id === Number(categoryId)).map(ct => ct.todo_id);
 
 allTodos.forEach(divTodo => {
-    const todoId = Number(divTodo.dataset.todoId)
+    const todoId = Number(divTodo.dataset.id)
     if (todoInCategory.includes(todoId)) {
         divTodo.classList.remove("hidden")
     } else {
