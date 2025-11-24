@@ -19,6 +19,7 @@ export async function load(
   newCalorCategory: HTMLInputElement,
   chengeCategory: HTMLDivElement,
   selecterCategoryForTodo: HTMLSelectElement,
+  filter: HTMLSelectElement
 ): Promise<void> {
   if (amg) {
     amg.classList.remove('hidden')
@@ -41,6 +42,7 @@ export async function load(
         updaitCategoryBtn,
         selecterCategoryForTodo,
         listTodo,
+        filter
       )
     })
 

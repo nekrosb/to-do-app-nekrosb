@@ -69,7 +69,6 @@ function deleteCategory(
   id: number,
   listCategory: HTMLDivElement,
   categories: CategoryData[],
-  selecterCategoryForTodo: HTMLSelectElement,
   listTodo: HTMLDivElement,
 ): void {
   const category = categories.findIndex((t) => t.id === id)
@@ -93,7 +92,7 @@ function deleteCategory(
   deleteCategoryTodoFromAPIFromCategory(id)
 
   const div = listCategory?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
-  const option = selecterCategoryForTodo.querySelector(
+  const option = document.querySelector(
     `[data-id='${id}-option']`,
   )
   if (!option) return
@@ -115,6 +114,7 @@ export function createCategoryElement(
   updaitCategoryBtn: HTMLButtonElement,
   selecterCategoryForTodo: HTMLSelectElement,
   listTodo: HTMLDivElement,
+  filter: HTMLSelectElement
 ): void {
   const categoryDiv = document.createElement('div')
   categoryDiv.classList.add('category-element')
@@ -152,6 +152,8 @@ export function createCategoryElement(
   optionForSelecter.textContent = category.title
   optionForSelecter.dataset.id = `${category.id}-option`
   selecterCategoryForTodo.appendChild(optionForSelecter)
+  filter.appendChild(optionForSelecter)
+  
 
   listCategory.appendChild(categoryDiv)
 
@@ -160,7 +162,6 @@ export function createCategoryElement(
       category.id,
       listCategory,
       categories,
-      selecterCategoryForTodo,
       listTodo,
     )
   })
@@ -202,6 +203,7 @@ export async function createNewCategory(
   chengeCategory: HTMLDivElement,
   selecterCategoryForTodo: HTMLSelectElement,
   listTodo: HTMLDivElement,
+  filter: HTMLSelectElement,
 ): Promise<void> {
   const contentCategory: contentCategoryData = {
     title: titleInput.value,
@@ -223,6 +225,7 @@ export async function createNewCategory(
       updaitCategoryBtn,
       selecterCategoryForTodo,
       listTodo,
+      filter
     )
     titleInput.value = ''
     color.value = '#000000'

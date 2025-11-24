@@ -59,6 +59,7 @@ const updaitCategoryBtn = document.querySelector<HTMLButtonElement>(
 )
 const selecterCategoryForTodo =
   document.querySelector<HTMLSelectElement>('#select-category')
+  const filter = document.querySelector<HTMLSelectElement>("#filter")
 
 if (
   !menuCreat ||
@@ -85,7 +86,8 @@ if (
   !newNameCategory ||
   !newCalorCategory ||
   !updaitCategoryBtn ||
-  !selecterCategoryForTodo
+  !selecterCategoryForTodo ||
+  !filter
 ) {
   throw new Error('html element not found')
 }
@@ -157,6 +159,7 @@ addNewCategoryBtn.addEventListener('click', () => {
     chengeCategory,
     selecterCategoryForTodo,
     listTodo,
+    filter
   )
 })
 
@@ -176,6 +179,7 @@ titleCategory.addEventListener('keydown', (e) => {
       chengeCategory,
       selecterCategoryForTodo,
       listTodo,
+      filter
     )
   }
 })
@@ -254,4 +258,5 @@ load(
   newCalorCategory,
   chengeCategory,
   selecterCategoryForTodo,
+  filter
 )
