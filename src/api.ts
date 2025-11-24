@@ -189,7 +189,7 @@ export async function deleteCategoryTodoFromAPIFromCategory(
   }
 }
 
-export async function deleteAllCategoryTodos() {
+export async function deleteAllCategoryTodos(): Promise<void> {
   try {
     await fetch(api_category_todo, {
       method: 'DELETE',
