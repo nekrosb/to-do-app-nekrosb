@@ -67,6 +67,9 @@ input {
   min-width: 10vw;
   min-height: 5vw;
   padding: 10px;
+  border-color: gray;
+  border-style: solid;
+  border-width: 15px;
   border-radius: 10px;
   color: white;
   text-shadow: 0.5vw 0.5vw 4px black;

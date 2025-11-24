@@ -1,5 +1,11 @@
-import { deleteCategoryFromAPI, postCategory, updateCategoryInAPI } from './api'
+import {
+  deleteCategoryFromAPI,
+  deleteCategoryTodoFromAPIFromCategory,
+  postCategory,
+  updateCategoryInAPI,
+} from './api'
 import { hiddenCategoryCreateMenu, showCategoryCreateMenu } from './menus'
+import { categoryTodos } from './storage'
 import type { CategoryData, contentCategoryData } from './types'
 
 async function updaitCategory(
@@ -11,6 +17,7 @@ async function updaitCategory(
   addCategoryBtn: HTMLButtonElement,
   closeCategoryListBtn: HTMLButtonElement,
   categories: CategoryData[],
+  selecterCategoryForTodo: HTMLSelectElement,
 ): Promise<void> {
   const aldCategory = categories.find((t) => t.id === id)
   if (!aldCategory) return
@@ -26,6 +33,10 @@ async function updaitCategory(
   await updateCategoryInAPI(aldCategory)
 
   const div = listCategory?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
+  const option = selecterCategoryForTodo.querySelector<HTMLOptionElement>(
+    `[data-id='${id}-option']`,
+  )
+  if (!option) return
   if (div) {
     if (newCalorCategory.value !== '') {
       div.style.backgroundColor = aldCategory.color
@@ -39,6 +50,7 @@ async function updaitCategory(
       const p = div.querySelector<HTMLParagraphElement>('p')
       if (p) {
         p.textContent = aldCategory.title
+        option.textContent = aldCategory.title
       }
     }
   }
@@ -57,15 +69,37 @@ function deleteCategory(
   id: number,
   listCategory: HTMLDivElement,
   categories: CategoryData[],
+  selecterCategoryForTodo: HTMLSelectElement,
+  listTodo: HTMLDivElement,
 ): void {
   const category = categories.findIndex((t) => t.id === id)
   if (category === -1) return
   deleteCategoryFromAPI(id)
   categories.splice(category, 1)
 
+  while (true) {
+    const ct = categoryTodos.findIndex((p) => p.category_id === id)
+    if (ct === -1) break
+
+    const todoDiv = listTodo.querySelector<HTMLDivElement>(
+      `[data-id='${categoryTodos[ct].todo_id}']`,
+    )
+    if (todoDiv) {
+      todoDiv.style.borderColor = 'gray'
+    }
+    categoryTodos.splice(ct, 1)
+  }
+
+  deleteCategoryTodoFromAPIFromCategory(id)
+
   const div = listCategory?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
+  const option = selecterCategoryForTodo.querySelector(
+    `[data-id='${id}-option']`,
+  )
+  if (!option) return
   if (div) {
     div.remove()
+    option.remove()
   }
 }
 
@@ -79,6 +113,8 @@ export function createCategoryElement(
   addCategoryBtn: HTMLButtonElement,
   closeCategoryListBtn: HTMLButtonElement,
   updaitCategoryBtn: HTMLButtonElement,
+  selecterCategoryForTodo: HTMLSelectElement,
+  listTodo: HTMLDivElement,
 ): void {
   const categoryDiv = document.createElement('div')
   categoryDiv.classList.add('category-element')
@@ -111,10 +147,22 @@ export function createCategoryElement(
   ul.appendChild(liDelete)
   categoryDiv.appendChild(ul)
 
+  const optionForSelecter = document.createElement('option')
+  optionForSelecter.value = category.id.toString()
+  optionForSelecter.textContent = category.title
+  optionForSelecter.dataset.id = `${category.id}-option`
+  selecterCategoryForTodo.appendChild(optionForSelecter)
+
   listCategory.appendChild(categoryDiv)
 
   deleteCategoryBtn.addEventListener('click', () => {
-    deleteCategory(category.id, listCategory, categories)
+    deleteCategory(
+      category.id,
+      listCategory,
+      categories,
+      selecterCategoryForTodo,
+      listTodo,
+    )
   })
 
   chengeBtn.addEventListener('click', () => {
@@ -134,6 +182,7 @@ export function createCategoryElement(
         addCategoryBtn,
         closeCategoryListBtn,
         categories,
+        selecterCategoryForTodo,
       )
     })
   })
@@ -151,6 +200,8 @@ export async function createNewCategory(
   newNameCategory: HTMLInputElement,
   newCalorCategory: HTMLInputElement,
   chengeCategory: HTMLDivElement,
+  selecterCategoryForTodo: HTMLSelectElement,
+  listTodo: HTMLDivElement,
 ): Promise<void> {
   const contentCategory: contentCategoryData = {
     title: titleInput.value,
@@ -170,6 +221,8 @@ export async function createNewCategory(
       addCategoryBtn,
       closeCategoryListBtn,
       updaitCategoryBtn,
+      selecterCategoryForTodo,
+      listTodo,
     )
     titleInput.value = ''
     color.value = '#000000'

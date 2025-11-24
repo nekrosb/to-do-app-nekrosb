@@ -1,9 +1,21 @@
-import { deleteTodoFromAPI, postTodo, updateTodoInAPI } from './api'
+import {
+  deleteCategoryTodoFromAPIFromTodo,
+  deleteTodoFromAPI,
+  postCategoryTodo,
+  postTodo,
+  updateTodoInAPI,
+} from './api'
 import { errorMsg } from './errors'
 import { hiddenCreateMenu } from './menus'
+import { categoryTodos } from './storage'
 
 import { finishHimText, iEmNotDieText } from './texts'
-import type { contentTodoData, TodoData } from './types'
+import type {
+  CategoryData,
+  categoryTodo,
+  contentTodoData,
+  TodoData,
+} from './types'
 
 async function doneOrNotDone(
   id: number,
@@ -36,6 +48,11 @@ function deleteTodo(
   if (todo === -1) return
   deleteTodoFromAPI(id)
   todos.splice(todo, 1)
+  const ct = categoryTodos.findIndex((ct) => ct.todo_id === id)
+  if (ct !== -1) {
+    categoryTodos.splice(ct, 1)
+  }
+  deleteCategoryTodoFromAPIFromTodo(id)
 
   const div = listTodo?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
   if (div) {
@@ -77,10 +94,19 @@ export function creatTodoElement(
   listTodo: HTMLDivElement,
   todos: TodoData[],
   errorParagraph: HTMLParagraphElement,
+  idCategory: number,
+  categories: CategoryData[],
 ): void {
   const newDiv = document.createElement('div') as HTMLDivElement
   newDiv.classList.add('todo')
   newDiv.dataset.id = todo.id.toString()
+
+  if (idCategory !== 0) {
+    const category = categories.find((c) => c.id === idCategory)
+    newDiv.style.borderColor = category ? category.color : 'gray'
+  } else {
+    newDiv.style.borderColor = 'gray'
+  }
 
   const p = document.createElement('p') as HTMLParagraphElement
   p.textContent = todo.title
@@ -152,6 +178,9 @@ export async function creatNewToDo(
   menuCreat: HTMLDivElement,
   contentInput: HTMLInputElement,
   categoryBtn: HTMLButtonElement,
+  selecterCategoryForTodo: HTMLSelectElement,
+  categoryTodo: categoryTodo[],
+  categories: CategoryData[],
 ): Promise<void> {
   const todo: contentTodoData = {
     title: titleInput.value,
@@ -177,8 +206,20 @@ export async function creatNewToDo(
   if (todo.title !== '') {
     const t = await postTodo(todo)
     todos.push(t)
-
-    creatTodoElement(t, listTodo, todos, errorParagraph)
+    const objCategoryTodo: categoryTodo = {
+      category_id: Number(selecterCategoryForTodo.value),
+      todo_id: t.id,
+    }
+    await postCategoryTodo(objCategoryTodo)
+    categoryTodo.push(objCategoryTodo)
+    creatTodoElement(
+      t,
+      listTodo,
+      todos,
+      errorParagraph,
+      objCategoryTodo.category_id,
+      categories,
+    )
     titleInput.value = ''
     contentInput.value = ''
     dateInput.value = ''

@@ -1,10 +1,11 @@
-import { fetchCategories, fetchTodos } from './api'
+import { fetchCategories, fetchCategoryTodo, fetchTodos } from './api'
 import { createCategoryElement } from './createing-categories'
 import { creatTodoElement } from './createing-todo'
-import type { CategoryData, TodoData } from './types'
+import type { CategoryData, categoryTodo, TodoData } from './types'
 
 export const todos: TodoData[] = []
 export const categories: CategoryData[] = []
+export const categoryTodos: categoryTodo[] = []
 
 export async function load(
   listTodo: HTMLDivElement,
@@ -17,18 +18,12 @@ export async function load(
   newNameCategory: HTMLInputElement,
   newCalorCategory: HTMLInputElement,
   chengeCategory: HTMLDivElement,
+  selecterCategoryForTodo: HTMLSelectElement,
 ): Promise<void> {
   if (amg) {
     amg.classList.remove('hidden')
   }
   try {
-    const todo = await fetchTodos()
-    todos.length = 0
-    listTodo.innerHTML = ''
-    todo.forEach((t) => {
-      todos.push(t)
-      creatTodoElement(t, listTodo, todos, error)
-    })
     const category = await fetchCategories()
     categories.length = 0
     listCategory.innerHTML = ''
@@ -44,6 +39,30 @@ export async function load(
         addCategoryBtn,
         closeCategoryListBtn,
         updaitCategoryBtn,
+        selecterCategoryForTodo,
+        listTodo,
+      )
+    })
+
+    const categoryTodo = await fetchCategoryTodo()
+    categoryTodos.length = 0
+    categoryTodo.forEach((ct) => {
+      categoryTodos.push(ct)
+    })
+
+    const todo = await fetchTodos()
+    todos.length = 0
+    listTodo.innerHTML = ''
+    todo.forEach((t) => {
+      todos.push(t)
+      const idCategory = categoryTodos.find((ct) => ct.todo_id === t.id)
+      creatTodoElement(
+        t,
+        listTodo,
+        todos,
+        error,
+        idCategory ? idCategory.category_id : 0,
+        categories,
       )
     })
   } catch {
