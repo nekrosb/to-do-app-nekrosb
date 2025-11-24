@@ -1,7 +1,12 @@
-import { deleteCategoryFromAPI, postCategory, updateCategoryInAPI, deleteCategoryTodoFromAPIFromCategory } from './api'
+import {
+  deleteCategoryFromAPI,
+  deleteCategoryTodoFromAPIFromCategory,
+  postCategory,
+  updateCategoryInAPI,
+} from './api'
 import { hiddenCategoryCreateMenu, showCategoryCreateMenu } from './menus'
-import type { CategoryData, categoryTodo, contentCategoryData,  } from './types'
 import { categoryTodos } from './storage'
+import type { CategoryData, contentCategoryData } from './types'
 
 async function updaitCategory(
   id: number,
@@ -28,7 +33,9 @@ async function updaitCategory(
   await updateCategoryInAPI(aldCategory)
 
   const div = listCategory?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
-  const option = selecterCategoryForTodo.querySelector<HTMLOptionElement>(`[data-id='${id}-option']`)
+  const option = selecterCategoryForTodo.querySelector<HTMLOptionElement>(
+    `[data-id='${id}-option']`,
+  )
   if (!option) return
   if (div) {
     if (newCalorCategory.value !== '') {
@@ -44,7 +51,6 @@ async function updaitCategory(
       if (p) {
         p.textContent = aldCategory.title
         option.textContent = aldCategory.title
-        
       }
     }
   }
@@ -70,16 +76,18 @@ function deleteCategory(
   deleteCategoryFromAPI(id)
   categories.splice(category, 1)
 
-while (true) {
-  const ct = categoryTodos.findIndex(p => p.category_id === id)
-  if (ct === -1) break
+  while (true) {
+    const ct = categoryTodos.findIndex((p) => p.category_id === id)
+    if (ct === -1) break
     categoryTodos.splice(ct, 1)
   }
 
   deleteCategoryTodoFromAPIFromCategory(id)
 
   const div = listCategory?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
-  const option = selecterCategoryForTodo.querySelector(`[data-id='${id}-option']`)
+  const option = selecterCategoryForTodo.querySelector(
+    `[data-id='${id}-option']`,
+  )
   if (!option) return
   if (div) {
     div.remove()
@@ -131,7 +139,7 @@ export function createCategoryElement(
   ul.appendChild(liDelete)
   categoryDiv.appendChild(ul)
 
-  const optionForSelecter = document.createElement("option")
+  const optionForSelecter = document.createElement('option')
   optionForSelecter.value = category.id.toString()
   optionForSelecter.textContent = category.title
   optionForSelecter.dataset.id = `${category.id}-option`
@@ -140,7 +148,12 @@ export function createCategoryElement(
   listCategory.appendChild(categoryDiv)
 
   deleteCategoryBtn.addEventListener('click', () => {
-    deleteCategory(category.id, listCategory, categories, selecterCategoryForTodo)
+    deleteCategory(
+      category.id,
+      listCategory,
+      categories,
+      selecterCategoryForTodo,
+    )
   })
 
   chengeBtn.addEventListener('click', () => {
@@ -149,7 +162,7 @@ export function createCategoryElement(
       addCategoryBtn,
       closeCategoryListBtn,
       chengeCategory,
-          )
+    )
     updaitCategoryBtn.addEventListener('click', () => {
       updaitCategory(
         category.id,
@@ -160,12 +173,10 @@ export function createCategoryElement(
         addCategoryBtn,
         closeCategoryListBtn,
         categories,
-        selecterCategoryForTodo
+        selecterCategoryForTodo,
       )
     })
   })
-
-
 }
 
 export async function createNewCategory(
@@ -200,7 +211,7 @@ export async function createNewCategory(
       addCategoryBtn,
       closeCategoryListBtn,
       updaitCategoryBtn,
-      selecterCategoryForTodo
+      selecterCategoryForTodo,
     )
     titleInput.value = ''
     color.value = '#000000'

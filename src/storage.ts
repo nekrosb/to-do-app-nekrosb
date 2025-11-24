@@ -1,7 +1,7 @@
-import { fetchCategories, fetchTodos, fetchCategoryTodo } from './api'
+import { fetchCategories, fetchCategoryTodo, fetchTodos } from './api'
 import { createCategoryElement } from './createing-categories'
 import { creatTodoElement } from './createing-todo'
-import type { CategoryData, TodoData, categoryTodo } from './types'
+import type { CategoryData, categoryTodo, TodoData } from './types'
 
 export const todos: TodoData[] = []
 export const categories: CategoryData[] = []
@@ -24,7 +24,7 @@ export async function load(
     amg.classList.remove('hidden')
   }
   try {
-        const category = await fetchCategories()
+    const category = await fetchCategories()
     categories.length = 0
     listCategory.innerHTML = ''
     category.forEach((c) => {
@@ -39,11 +39,11 @@ export async function load(
         addCategoryBtn,
         closeCategoryListBtn,
         updaitCategoryBtn,
-        selecterCategoryForTodo
+        selecterCategoryForTodo,
       )
     })
 
-const categoryTodo = await fetchCategoryTodo()
+    const categoryTodo = await fetchCategoryTodo()
     categoryTodos.length = 0
     categoryTodo.forEach((ct) => {
       categoryTodos.push(ct)
@@ -54,8 +54,15 @@ const categoryTodo = await fetchCategoryTodo()
     listTodo.innerHTML = ''
     todo.forEach((t) => {
       todos.push(t)
-      const idCategory = categoryTodos.find(ct => ct.todo_id === t.id)
-      creatTodoElement(t, listTodo, todos, error, idCategory ? idCategory.category_id : 0, categories)
+      const idCategory = categoryTodos.find((ct) => ct.todo_id === t.id)
+      creatTodoElement(
+        t,
+        listTodo,
+        todos,
+        error,
+        idCategory ? idCategory.category_id : 0,
+        categories,
+      )
     })
   } catch {
     throw new Error('Failed to load todos and categories')

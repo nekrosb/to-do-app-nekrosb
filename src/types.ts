@@ -24,8 +24,7 @@ export interface contentCategoryData {
   color: string
 }
 
-
 export interface categoryTodo {
-  category_id: number,
+  category_id: number
   todo_id: number
 }

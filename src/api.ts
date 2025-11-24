@@ -1,14 +1,14 @@
 import type {
   CategoryData,
+  categoryTodo,
   contentCategoryData,
   contentTodoData,
   TodoData,
-  categoryTodo
 } from './types'
 
 const API_URL = 'https://api.todos.in.jt-lab.ch/todos'
 const api_categories_url = 'https://api.todos.in.jt-lab.ch/categories'
-const api_category_todo = "https://api.todos.in.jt-lab.ch/categories_todos"
+const api_category_todo = 'https://api.todos.in.jt-lab.ch/categories_todos'
 
 // work with todos
 
@@ -134,7 +134,6 @@ export async function updateCategoryInAPI(
   }
 }
 
-
 // work with category_todo
 
 export async function fetchCategoryTodo(): Promise<categoryTodo[]> {
@@ -147,7 +146,9 @@ export async function fetchCategoryTodo(): Promise<categoryTodo[]> {
   }
 }
 
-export async function postCategoryTodo(categoryTodoItem: categoryTodo): Promise<void> {
+export async function postCategoryTodo(
+  categoryTodoItem: categoryTodo,
+): Promise<void> {
   try {
     await fetch(api_category_todo, {
       method: 'POST',
@@ -162,7 +163,9 @@ export async function postCategoryTodo(categoryTodoItem: categoryTodo): Promise<
   }
 }
 
-export async function deleteCategoryTodoFromAPIFromTodo(id: number): Promise<void> {
+export async function deleteCategoryTodoFromAPIFromTodo(
+  id: number,
+): Promise<void> {
   try {
     await fetch(`${api_category_todo}?todo_id=eq.${id}`, {
       method: 'DELETE',
@@ -173,7 +176,9 @@ export async function deleteCategoryTodoFromAPIFromTodo(id: number): Promise<voi
   }
 }
 
-export async function deleteCategoryTodoFromAPIFromCategory(id: number): Promise<void> {
+export async function deleteCategoryTodoFromAPIFromCategory(
+  id: number,
+): Promise<void> {
   try {
     await fetch(`${api_category_todo}?category_id=eq.${id}`, {
       method: 'DELETE',

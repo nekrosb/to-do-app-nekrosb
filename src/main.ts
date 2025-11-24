@@ -10,7 +10,7 @@ import {
   showCategoryCreateMenu,
   showCreateMenu,
 } from './menus'
-import { categories, load, todos, categoryTodos } from './storage'
+import { categories, categoryTodos, load, todos } from './storage'
 import type { TodoData } from './types'
 
 console.log('Hello from typescript') // litel constants
@@ -54,8 +54,11 @@ const newNameCategory =
 const newCalorCategory = document.querySelector<HTMLInputElement>(
   '#new-color-category',
 )
-const updaitCategoryBtn = document.querySelector<HTMLButtonElement>('#updait-category-btn')
-const selecterCategoryForTodo = document.querySelector<HTMLSelectElement>("#select-category")
+const updaitCategoryBtn = document.querySelector<HTMLButtonElement>(
+  '#updait-category-btn',
+)
+const selecterCategoryForTodo =
+  document.querySelector<HTMLSelectElement>('#select-category')
 
 if (
   !menuCreat ||
@@ -152,7 +155,7 @@ addNewCategoryBtn.addEventListener('click', () => {
     newNameCategory,
     newCalorCategory,
     chengeCategory,
-    selecterCategoryForTodo
+    selecterCategoryForTodo,
   )
 })
 
@@ -170,7 +173,7 @@ titleCategory.addEventListener('keydown', (e) => {
       newNameCategory,
       newCalorCategory,
       chengeCategory,
-      selecterCategoryForTodo
+      selecterCategoryForTodo,
     )
   }
 })
@@ -209,27 +212,27 @@ addNewTodoBtn.addEventListener('click', () => {
     categoryBtn,
     selecterCategoryForTodo,
     categoryTodos,
-    categories
+    categories,
   )
 })
 
 titleInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-  creatNewToDo(
-    listTodo,
-    plusBtn,
-    deleteAllBtn,
-    todos,
-    titleInput,
-    dateInput,
-    errorParagraph,
-    menuCreat,
-    contentInput,
-    categoryBtn,
-    selecterCategoryForTodo,
-    categoryTodos,
-    categories
-  )
+    creatNewToDo(
+      listTodo,
+      plusBtn,
+      deleteAllBtn,
+      todos,
+      titleInput,
+      dateInput,
+      errorParagraph,
+      menuCreat,
+      contentInput,
+      categoryBtn,
+      selecterCategoryForTodo,
+      categoryTodos,
+      categories,
+    )
   }
 })
 
@@ -248,5 +251,5 @@ load(
   newNameCategory,
   newCalorCategory,
   chengeCategory,
-  selecterCategoryForTodo
+  selecterCategoryForTodo,
 )
