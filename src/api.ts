@@ -3,10 +3,12 @@ import type {
   contentCategoryData,
   contentTodoData,
   TodoData,
+  categoryTodo
 } from './types'
 
 const API_URL = 'https://api.todos.in.jt-lab.ch/todos'
 const api_categories_url = 'https://api.todos.in.jt-lab.ch/categories'
+const api_category_todo = "https://api.todos.in.jt-lab.ch/categories_todos"
 
 // work with todos
 
@@ -129,5 +131,66 @@ export async function updateCategoryInAPI(
   } catch (error) {
     alert('you have problem with internet connection')
     throw new Error(`Failed to update category in API ${error}`)
+  }
+}
+
+
+// work with category_todo
+
+export async function fetchCategoryTodo(): Promise<categoryTodo[]> {
+  try {
+    const response = await fetch(api_category_todo)
+    return response.json()
+  } catch {
+    alert('you have problem with internet connection')
+    throw new Error()
+  }
+}
+
+export async function postCategoryTodo(categoryTodoItem: categoryTodo): Promise<void> {
+  try {
+    await fetch(api_category_todo, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(categoryTodoItem),
+    })
+  } catch {
+    alert('you have problem with internet connection')
+    throw new Error()
+  }
+}
+
+export async function deleteCategoryTodoFromAPIFromTodo(id: number): Promise<void> {
+  try {
+    await fetch(`${api_category_todo}?todo_id=eq.${id}`, {
+      method: 'DELETE',
+    })
+  } catch {
+    alert('you have problem with internet connection')
+    throw new Error()
+  }
+}
+
+export async function deleteCategoryTodoFromAPIFromCategory(id: number): Promise<void> {
+  try {
+    await fetch(`${api_category_todo}?category_id=eq.${id}`, {
+      method: 'DELETE',
+    })
+  } catch {
+    alert('you have problem with internet connection')
+    throw new Error()
+  }
+}
+
+export async function deleteAllCategoryTodos() {
+  try {
+    await fetch(api_category_todo, {
+      method: 'DELETE',
+    })
+  } catch {
+    alert('you have problem with internet connection')
+    throw new Error()
   }
 }

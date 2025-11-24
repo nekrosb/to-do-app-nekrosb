@@ -1,5 +1,5 @@
 import './style.css'
-import { deleteAllApiTodos } from './api'
+import { deleteAllApiTodos, deleteAllCategoryTodos } from './api'
 import { createNewCategory } from './createing-categories'
 import { creatNewToDo } from './createing-todo'
 import {
@@ -10,7 +10,7 @@ import {
   showCategoryCreateMenu,
   showCreateMenu,
 } from './menus'
-import { categories, load, todos } from './storage'
+import { categories, load, todos, categoryTodos } from './storage'
 import type { TodoData } from './types'
 
 console.log('Hello from typescript') // litel constants
@@ -54,9 +54,8 @@ const newNameCategory =
 const newCalorCategory = document.querySelector<HTMLInputElement>(
   '#new-color-category',
 )
-const updaitCategoryBtn = document.querySelector<HTMLButtonElement>(
-  '#updait-category-btn',
-)
+const updaitCategoryBtn = document.querySelector<HTMLButtonElement>('#updait-category-btn')
+const selecterCategoryForTodo = document.querySelector<HTMLSelectElement>("#select-category")
 
 if (
   !menuCreat ||
@@ -82,7 +81,8 @@ if (
   !chengeCategory ||
   !newNameCategory ||
   !newCalorCategory ||
-  !updaitCategoryBtn
+  !updaitCategoryBtn ||
+  !selecterCategoryForTodo
 ) {
   throw new Error('html element not found')
 }
@@ -99,6 +99,8 @@ closeCategoryListBtn.classList.add('hidden')
 
 function deleteAll(list: HTMLDivElement, TodosList: TodoData[]): void {
   TodosList.length = 0
+  categoryTodos.length = 0
+  deleteAllCategoryTodos()
   deleteAllApiTodos()
   list.innerHTML = ''
 }
@@ -150,6 +152,7 @@ addNewCategoryBtn.addEventListener('click', () => {
     newNameCategory,
     newCalorCategory,
     chengeCategory,
+    selecterCategoryForTodo
   )
 })
 
@@ -167,6 +170,7 @@ titleCategory.addEventListener('keydown', (e) => {
       newNameCategory,
       newCalorCategory,
       chengeCategory,
+      selecterCategoryForTodo
     )
   }
 })
@@ -203,23 +207,29 @@ addNewTodoBtn.addEventListener('click', () => {
     menuCreat,
     contentInput,
     categoryBtn,
+    selecterCategoryForTodo,
+    categoryTodos,
+    categories
   )
 })
 
 titleInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-    creatNewToDo(
-      listTodo,
-      plusBtn,
-      deleteAllBtn,
-      todos,
-      titleInput,
-      dateInput,
-      errorParagraph,
-      menuCreat,
-      contentInput,
-      categoryBtn,
-    )
+  creatNewToDo(
+    listTodo,
+    plusBtn,
+    deleteAllBtn,
+    todos,
+    titleInput,
+    dateInput,
+    errorParagraph,
+    menuCreat,
+    contentInput,
+    categoryBtn,
+    selecterCategoryForTodo,
+    categoryTodos,
+    categories
+  )
   }
 })
 
@@ -238,4 +248,5 @@ load(
   newNameCategory,
   newCalorCategory,
   chengeCategory,
+  selecterCategoryForTodo
 )

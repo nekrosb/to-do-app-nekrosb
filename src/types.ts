@@ -23,3 +23,9 @@ export interface contentCategoryData {
   title: string
   color: string
 }
+
+
+export interface categoryTodo {
+  category_id: number,
+  todo_id: number
+}
