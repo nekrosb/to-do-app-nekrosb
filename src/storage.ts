@@ -19,7 +19,7 @@ export async function load(
   newColorCategory: HTMLInputElement,
   changeCategory: HTMLDivElement,
   selectorCategoryForTodo: HTMLSelectElement,
-  filter: HTMLSelectElement
+  filter: HTMLSelectElement,
 ): Promise<void> {
   if (img) {
     img.classList.remove('hidden')
@@ -42,7 +42,7 @@ export async function load(
         updateCategoryBtn,
         selectorCategoryForTodo,
         listTodo,
-        filter
+        filter,
       )
     })
 

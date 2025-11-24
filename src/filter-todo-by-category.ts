@@ -1,23 +1,27 @@
-import {  categoryTodos } from "./storage";
+import { categoryTodos } from './storage'
 
-export function filterTodoByCategory(categoryId: string, listTodo: HTMLDivElement): void {
-const allTodos = listTodo.querySelectorAll<HTMLDivElement>(".todo")
-if (categoryId === "0" || categoryId === "") {
-    allTodos.forEach(todo => {
-        todo.classList.remove("hidden")
+export function filterTodoByCategory(
+  categoryId: string,
+  listTodo: HTMLDivElement,
+): void {
+  const allTodos = listTodo.querySelectorAll<HTMLDivElement>('.todo')
+  if (categoryId === '0' || categoryId === '') {
+    allTodos.forEach((todo) => {
+      todo.classList.remove('hidden')
     })
-    return;
-}
+    return
+  }
 
-const todoInCategory = categoryTodos.filter(ct => ct.category_id === Number(categoryId)).map(ct => ct.todo_id);
+  const todoInCategory = categoryTodos
+    .filter((ct) => ct.category_id === Number(categoryId))
+    .map((ct) => ct.todo_id)
 
-allTodos.forEach(divTodo => {
+  allTodos.forEach((divTodo) => {
     const todoId = Number(divTodo.dataset.id)
     if (todoInCategory.includes(todoId)) {
-        divTodo.classList.remove("hidden")
+      divTodo.classList.remove('hidden')
     } else {
-        divTodo.classList.add("hidden")
+      divTodo.classList.add('hidden')
     }
-})
-
+  })
 }

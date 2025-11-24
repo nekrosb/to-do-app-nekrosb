@@ -92,9 +92,7 @@ function deleteCategory(
   deleteCategoryTodoFromAPIFromCategory(id)
 
   const div = listCategory?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
-  const option = document.querySelector(
-    `[data-id='${id}-option']`,
-  )
+  const option = document.querySelector(`[data-id='${id}-option']`)
   if (!option) return
   if (div) {
     div.remove()
@@ -114,7 +112,7 @@ export function createCategoryElement(
   updateCategoryBtn: HTMLButtonElement,
   selectorCategoryForTodo: HTMLSelectElement,
   listTodo: HTMLDivElement,
-  filter: HTMLSelectElement
+  filter: HTMLSelectElement,
 ): void {
   const categoryDiv = document.createElement('div')
   categoryDiv.classList.add('category-element')
@@ -153,17 +151,11 @@ export function createCategoryElement(
   optionForSelector.dataset.id = `${category.id}-option`
   selectorCategoryForTodo.appendChild(optionForSelector)
   filter.appendChild(optionForSelector)
-  
 
   listCategory.appendChild(categoryDiv)
 
   deleteCategoryBtn.addEventListener('click', () => {
-    deleteCategory(
-      category.id,
-      listCategory,
-      categories,
-      listTodo,
-    )
+    deleteCategory(category.id, listCategory, categories, listTodo)
   })
 
   changeBtn.addEventListener('click', () => {
@@ -225,7 +217,7 @@ export async function createNewCategory(
       updateCategoryBtn,
       selectorCategoryForTodo,
       listTodo,
-      filter
+      filter,
     )
     titleInput.value = ''
     color.value = '#000000'

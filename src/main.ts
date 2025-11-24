@@ -59,7 +59,7 @@ const updateCategoryBtn = document.querySelector<HTMLButtonElement>(
 )
 const selectorCategoryForTodo =
   document.querySelector<HTMLSelectElement>('#select-category')
-  const filter = document.querySelector<HTMLSelectElement>("#filter")
+const filter = document.querySelector<HTMLSelectElement>('#filter')
 
 if (
   !menuCreate ||
@@ -159,7 +159,7 @@ addNewCategoryBtn.addEventListener('click', () => {
     changeCategory,
     selectorCategoryForTodo,
     listTodo,
-    filter
+    filter,
   )
 })
 
@@ -179,7 +179,7 @@ titleCategory.addEventListener('keydown', (e) => {
       changeCategory,
       selectorCategoryForTodo,
       listTodo,
-      filter
+      filter,
     )
   }
 })
@@ -258,5 +258,5 @@ load(
   newColorCategory,
   changeCategory,
   selectorCategoryForTodo,
-  filter
+  filter,
 )
