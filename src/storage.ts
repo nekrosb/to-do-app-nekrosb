@@ -40,6 +40,7 @@ export async function load(
         closeCategoryListBtn,
         updaitCategoryBtn,
         selecterCategoryForTodo,
+        listTodo
       )
     })
 

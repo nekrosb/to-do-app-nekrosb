@@ -156,6 +156,7 @@ addNewCategoryBtn.addEventListener('click', () => {
     newCalorCategory,
     chengeCategory,
     selecterCategoryForTodo,
+    listTodo
   )
 })
 
@@ -174,6 +175,7 @@ titleCategory.addEventListener('keydown', (e) => {
       newCalorCategory,
       chengeCategory,
       selecterCategoryForTodo,
+      listTodo
     )
   }
 })
