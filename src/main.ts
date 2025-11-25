@@ -254,14 +254,15 @@ titleInput.addEventListener('keydown', (e) => {
 
 deleteAllBtn.addEventListener('click', () => {
   dialogDelete.showModal()
-  confirmDeleteBtn.addEventListener('click', () => {
-    deleteAll(listTodo, todos)
-    dialogDelete.close()
-  })
+})
 
-  closeDeleteBtn.addEventListener('click', () => {
-    dialogDelete.close()
-  })
+confirmDeleteBtn.addEventListener('click', () => {
+  deleteAll(listTodo, todos)
+  dialogDelete.close()
+})
+
+closeDeleteBtn.addEventListener('click', () => {
+  dialogDelete.close()
 })
 
 load(
