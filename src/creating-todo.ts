@@ -188,9 +188,15 @@ export async function createNewTodo(
     due_date: dateInput.value ? dateInput.value : undefined,
     done: false,
   }
+
+  if (dateInput.validity.badInput || !dateInput.validity.valid) {
+    alert('The date format is incorrect. Please use YYYY-MM-DD format.')
+    return
+  }
+
   const dateValue = dateInput.value
 
-  if (dateValue.length === 10 || dateValue.length === 0) {
+  if (dateValue) {
     const selectedDate = new Date(dateValue)
     const today = new Date()
 
@@ -203,9 +209,6 @@ export async function createNewTodo(
       )
       return
     }
-  } else {
-    alert('Please enter a valid date in the format YYYY MM DD.')
-    return
   }
 
   if (todo.title !== '') {
