@@ -2,6 +2,7 @@ import './style.css'
 import { deleteAllApiTodos, deleteAllCategoryTodos } from './api'
 import { createNewCategory } from './creating-categories'
 import { createNewTodo } from './creating-todo'
+import { filterTodoByCategory } from './filter-todo-by-category'
 import {
   hiddenCategoryCreateMenu,
   hiddenCreateMenu,
@@ -260,3 +261,7 @@ load(
   selectorCategoryForTodo,
   filter,
 )
+
+filter.addEventListener('change', () => {
+  filterTodoByCategory(filter.value, listTodo)
+})

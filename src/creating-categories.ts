@@ -150,7 +150,8 @@ export function createCategoryElement(
   optionForSelector.textContent = category.title
   optionForSelector.dataset.id = `${category.id}-option`
   selectorCategoryForTodo.appendChild(optionForSelector)
-  filter.appendChild(optionForSelector)
+  const filterOption = optionForSelector.cloneNode(true)
+  filter.appendChild(filterOption)
 
   listCategory.appendChild(categoryDiv)
 
