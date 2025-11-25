@@ -1,2 +1,2 @@
-export const finishHimText = 'FINISH HIM'
-export const iAmNotDeadText = "I'M NOT DEAD?"
+export const finishHimText = ' FINISH TODO'
+export const iAmNotDeadText = 'UN FINISH TODO'
