@@ -103,6 +103,7 @@ input {
   background: red;
   border: none;
   color: white;
+  font-weight: bold;
   padding: 5px 10px;
   margin: 0 5px;
   border-radius: 5px;
@@ -126,7 +127,8 @@ input {
 
 .finish-todo-btn {
   background: green;
-  color: lightgreen;
+  color: white;
+  font-weight: heavy;
   border: none;
   padding: 5px 10px;
   border-radius: 5px;
