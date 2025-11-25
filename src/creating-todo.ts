@@ -34,7 +34,7 @@ async function doneOrNotDone(
     div.classList.toggle('todo-done')
     const btn = div.querySelector<HTMLButtonElement>('.finish-todo-btn')
     if (btn) {
-      btn.textContent = !todo.done ? finishHimText : iAmNotDeadText
+      btn.innerHTML = !todo.done ? finishHimText : iAmNotDeadText
     }
   }
 }
@@ -115,7 +115,7 @@ export function createTodoElement(
   pContent.textContent = todo.content ? todo.content : ''
 
   const doneBtn = document.createElement('button')
-  doneBtn.textContent = !todo.done ? finishHimText : iAmNotDeadText
+  doneBtn.innerHTML = !todo.done ? finishHimText : iAmNotDeadText
   doneBtn.classList.add('finish-todo-btn')
 
   const deleteBtn = document.createElement('button')
