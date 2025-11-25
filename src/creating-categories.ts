@@ -166,19 +166,20 @@ export function createCategoryElement(
       closeCategoryListBtn,
       changeCategory,
     )
-    updateCategoryBtn.addEventListener('click', () => {
-      updateCategory(
-        category.id,
-        listCategory,
-        changeCategory,
-        newNameCategory,
-        newColorCategory,
-        addCategoryBtn,
-        closeCategoryListBtn,
-        categories,
-        selectorCategoryForTodo,
-      )
-    })
+  })
+
+  updateCategoryBtn.addEventListener('click', () => {
+    updateCategory(
+      category.id,
+      listCategory,
+      changeCategory,
+      newNameCategory,
+      newColorCategory,
+      addCategoryBtn,
+      closeCategoryListBtn,
+      categories,
+      selectorCategoryForTodo,
+    )
   })
 }
 
