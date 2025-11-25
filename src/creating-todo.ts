@@ -190,7 +190,7 @@ export async function createNewTodo(
   }
   const dateValue = dateInput.value
 
-  if (dateValue) {
+  if (dateValue.length === 10 || dateValue.length === 0) {
     const selectedDate = new Date(dateValue)
     const today = new Date()
 
@@ -198,9 +198,14 @@ export async function createNewTodo(
     today.setHours(0, 0, 0, 0)
 
     if (selectedDate < today) {
-      alert('The selected date is in the past. Please choose a valid date.')
+      alert(
+        'The selected date is in the past or not complete. Please choose a valid date.',
+      )
       return
     }
+  } else {
+    alert('Please enter a valid date in the format YYYY MM DD.')
+    return
   }
 
   if (todo.title !== '') {

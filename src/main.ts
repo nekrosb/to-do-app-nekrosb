@@ -19,7 +19,7 @@ console.log('Hello from TypeScript') // little constants
 // taking all dom in ts
 const imgLoad = document.querySelector<HTMLImageElement>('#img-load')
 const listTodo = document.querySelector<HTMLDivElement>('#todo-list')
-const menuCreate = document.querySelector<HTMLDivElement>('#creat-todo')
+const menuCreate = document.querySelector<HTMLDivElement>('#create-todo')
 const closeCreateMenuBtn =
   document.querySelector<HTMLButtonElement>('#close-create-menu')
 const addNewTodoBtn =
@@ -61,6 +61,12 @@ const updateCategoryBtn = document.querySelector<HTMLButtonElement>(
 const selectorCategoryForTodo =
   document.querySelector<HTMLSelectElement>('#select-category')
 const filter = document.querySelector<HTMLSelectElement>('#filter')
+const dialogDelete = document.querySelector<HTMLDialogElement>('#dialog-delete')
+const confirmDeleteBtn = document.querySelector<HTMLButtonElement>(
+  '#confirm-delete-btn',
+)
+const closeDeleteBtn =
+  document.querySelector<HTMLButtonElement>('#close-delete-btn')
 
 if (
   !menuCreate ||
@@ -88,7 +94,10 @@ if (
   !newColorCategory ||
   !updateCategoryBtn ||
   !selectorCategoryForTodo ||
-  !filter
+  !filter ||
+  !dialogDelete ||
+  !confirmDeleteBtn ||
+  !closeDeleteBtn
 ) {
   throw new Error('html element not found')
 }
@@ -244,7 +253,15 @@ titleInput.addEventListener('keydown', (e) => {
 })
 
 deleteAllBtn.addEventListener('click', () => {
-  deleteAll(listTodo, todos)
+  dialogDelete.showModal()
+  confirmDeleteBtn.addEventListener('click', () => {
+    deleteAll(listTodo, todos)
+    dialogDelete.close()
+  })
+
+  closeDeleteBtn.addEventListener('click', () => {
+    dialogDelete.close()
+  })
 })
 
 load(

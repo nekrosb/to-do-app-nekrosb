@@ -43,7 +43,7 @@ header {
   background-color: white;
 }
 
-.creat-new-todo {
+.create-new-todo {
   display: flex;
   justify-content: center;
   align-items: center;
