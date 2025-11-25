@@ -9,7 +9,7 @@ import { errorMsg } from './errors'
 import { hiddenCreateMenu } from './menus'
 import { categoryTodos } from './storage'
 
-import { finishHimText, iEmNotDieText } from './texts'
+import { finishHimText, iAmNotDeadText } from './texts'
 import type {
   CategoryData,
   categoryTodo,
@@ -34,7 +34,7 @@ async function doneOrNotDone(
     div.classList.toggle('todo-done')
     const btn = div.querySelector<HTMLButtonElement>('.finish-todo-btn')
     if (btn) {
-      btn.textContent = !todo.done ? finishHimText : iEmNotDieText
+      btn.textContent = !todo.done ? finishHimText : iAmNotDeadText
     }
   }
 }
@@ -72,7 +72,7 @@ function colorOfDate(date: string): string {
   )
 
   if (diffDays < 0) {
-    return 'luse-date'
+    return 'past-date'
   }
 
   if (diffDays === 0) {
@@ -89,7 +89,7 @@ function colorOfDate(date: string): string {
   return ''
 }
 
-export function creatTodoElement(
+export function createTodoElement(
   todo: TodoData,
   listTodo: HTMLDivElement,
   todos: TodoData[],
@@ -115,7 +115,7 @@ export function creatTodoElement(
   pContent.textContent = todo.content ? todo.content : ''
 
   const doneBtn = document.createElement('button')
-  doneBtn.textContent = !todo.done ? finishHimText : iEmNotDieText
+  doneBtn.textContent = !todo.done ? finishHimText : iAmNotDeadText
   doneBtn.classList.add('finish-todo-btn')
 
   const deleteBtn = document.createElement('button')
@@ -147,8 +147,8 @@ export function creatTodoElement(
     errorMsg(errorParagraph)
   })
 
-  const liTitel = document.createElement('li')
-  liTitel.appendChild(p)
+  const liTitle = document.createElement('li')
+  liTitle.appendChild(p)
 
   const liDate = document.createElement('li')
   liDate.appendChild(dateP)
@@ -156,7 +156,7 @@ export function creatTodoElement(
   const liButtons = document.createElement('li')
   liButtons.appendChild(doneBtn)
   liButtons.append(deleteBtn)
-  ul.appendChild(liTitel)
+  ul.appendChild(liTitle)
   ul.appendChild(pContent)
   ul.appendChild(liDate)
   ul.appendChild(liButtons)
@@ -167,7 +167,7 @@ export function creatTodoElement(
   listTodo?.appendChild(newDiv)
 }
 
-export async function creatNewToDo(
+export async function createNewTodo(
   listTodo: HTMLDivElement,
   plusBtn: HTMLButtonElement,
   deleteAllBtn: HTMLButtonElement,
@@ -175,10 +175,10 @@ export async function creatNewToDo(
   titleInput: HTMLInputElement,
   dateInput: HTMLInputElement,
   errorParagraph: HTMLParagraphElement,
-  menuCreat: HTMLDivElement,
+  menuCreate: HTMLDivElement,
   contentInput: HTMLInputElement,
   categoryBtn: HTMLButtonElement,
-  selecterCategoryForTodo: HTMLSelectElement,
+  selectorCategoryForTodo: HTMLSelectElement,
   categoryTodo: categoryTodo[],
   categories: CategoryData[],
 ): Promise<void> {
@@ -207,12 +207,12 @@ export async function creatNewToDo(
     const t = await postTodo(todo)
     todos.push(t)
     const objCategoryTodo: categoryTodo = {
-      category_id: Number(selecterCategoryForTodo.value),
+      category_id: Number(selectorCategoryForTodo.value),
       todo_id: t.id,
     }
     await postCategoryTodo(objCategoryTodo)
     categoryTodo.push(objCategoryTodo)
-    creatTodoElement(
+    createTodoElement(
       t,
       listTodo,
       todos,
@@ -223,8 +223,8 @@ export async function creatNewToDo(
     titleInput.value = ''
     contentInput.value = ''
     dateInput.value = ''
-    hiddenCreateMenu(plusBtn, deleteAllBtn, listTodo, menuCreat, categoryBtn)
+    hiddenCreateMenu(plusBtn, deleteAllBtn, listTodo, menuCreate, categoryBtn)
   } else {
-    alert('you forget sam sings')
+    alert('You forgot something')
   }
 }

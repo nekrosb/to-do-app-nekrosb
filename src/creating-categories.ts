@@ -8,49 +8,49 @@ import { hiddenCategoryCreateMenu, showCategoryCreateMenu } from './menus'
 import { categoryTodos } from './storage'
 import type { CategoryData, contentCategoryData } from './types'
 
-async function updaitCategory(
+async function updateCategory(
   id: number,
   listCategory: HTMLDivElement,
-  chengeCategory: HTMLDivElement,
+  changeCategory: HTMLDivElement,
   newNameCategory: HTMLInputElement,
-  newCalorCategory: HTMLInputElement,
+  newColorCategory: HTMLInputElement,
   addCategoryBtn: HTMLButtonElement,
   closeCategoryListBtn: HTMLButtonElement,
   categories: CategoryData[],
-  selecterCategoryForTodo: HTMLSelectElement,
+  selectorCategoryForTodo: HTMLSelectElement,
 ): Promise<void> {
-  const aldCategory = categories.find((t) => t.id === id)
-  if (!aldCategory) return
+  const oldCategory = categories.find((t) => t.id === id)
+  if (!oldCategory) return
 
   if (newNameCategory.value !== '') {
-    aldCategory.title = newNameCategory.value
+    oldCategory.title = newNameCategory.value
   }
 
-  if (newCalorCategory.value !== '') {
-    aldCategory.color = newCalorCategory.value
+  if (newColorCategory.value !== '') {
+    oldCategory.color = newColorCategory.value
   }
 
-  await updateCategoryInAPI(aldCategory)
+  await updateCategoryInAPI(oldCategory)
 
   const div = listCategory?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
-  const option = selecterCategoryForTodo.querySelector<HTMLOptionElement>(
+  const option = selectorCategoryForTodo.querySelector<HTMLOptionElement>(
     `[data-id='${id}-option']`,
   )
   if (!option) return
   if (div) {
-    if (newCalorCategory.value !== '') {
-      div.style.backgroundColor = aldCategory.color
+    if (newColorCategory.value !== '') {
+      div.style.backgroundColor = oldCategory.color
       const btn = div.querySelector<HTMLButtonElement>('button')
       if (btn) {
-        btn.style.backgroundColor = aldCategory.color
+        btn.style.backgroundColor = oldCategory.color
       }
     }
 
     if (newNameCategory.value !== '') {
       const p = div.querySelector<HTMLParagraphElement>('p')
       if (p) {
-        p.textContent = aldCategory.title
-        option.textContent = aldCategory.title
+        p.textContent = oldCategory.title
+        option.textContent = oldCategory.title
       }
     }
   }
@@ -59,17 +59,16 @@ async function updaitCategory(
     listCategory,
     addCategoryBtn,
     closeCategoryListBtn,
-    chengeCategory,
+    changeCategory,
   )
   newNameCategory.value = ''
-  newCalorCategory.value = '#000000'
+  newColorCategory.value = '#000000'
 }
 
 function deleteCategory(
   id: number,
   listCategory: HTMLDivElement,
   categories: CategoryData[],
-  selecterCategoryForTodo: HTMLSelectElement,
   listTodo: HTMLDivElement,
 ): void {
   const category = categories.findIndex((t) => t.id === id)
@@ -93,9 +92,7 @@ function deleteCategory(
   deleteCategoryTodoFromAPIFromCategory(id)
 
   const div = listCategory?.querySelector<HTMLDivElement>(`[data-id='${id}']`)
-  const option = selecterCategoryForTodo.querySelector(
-    `[data-id='${id}-option']`,
-  )
+  const option = document.querySelector(`[data-id='${id}-option']`)
   if (!option) return
   if (div) {
     div.remove()
@@ -107,14 +104,15 @@ export function createCategoryElement(
   listCategory: HTMLDivElement,
   category: CategoryData,
   categories: CategoryData[],
-  chengeCategory: HTMLDivElement,
+  changeCategory: HTMLDivElement,
   newNameCategory: HTMLInputElement,
-  newCalorCategory: HTMLInputElement,
+  newColorCategory: HTMLInputElement,
   addCategoryBtn: HTMLButtonElement,
   closeCategoryListBtn: HTMLButtonElement,
-  updaitCategoryBtn: HTMLButtonElement,
-  selecterCategoryForTodo: HTMLSelectElement,
+  updateCategoryBtn: HTMLButtonElement,
+  selectorCategoryForTodo: HTMLSelectElement,
   listTodo: HTMLDivElement,
+  filter: HTMLSelectElement,
 ): void {
   const categoryDiv = document.createElement('div')
   categoryDiv.classList.add('category-element')
@@ -124,9 +122,9 @@ export function createCategoryElement(
   const categoryTitle = document.createElement('p')
   categoryTitle.textContent = category.title
 
-  const chengeBtn = document.createElement('button')
-  chengeBtn.textContent = '✏️'
-  chengeBtn.style.backgroundColor = category.color
+  const changeBtn = document.createElement('button')
+  changeBtn.textContent = '✏️'
+  changeBtn.style.backgroundColor = category.color
 
   const deleteCategoryBtn = document.createElement('button')
   deleteCategoryBtn.textContent = '🗑️'
@@ -138,51 +136,47 @@ export function createCategoryElement(
   liTitle.appendChild(categoryTitle)
   ul.appendChild(liTitle)
 
-  const liChenge = document.createElement('li')
-  liChenge.appendChild(chengeBtn)
-  ul.appendChild(liChenge)
+  const liChange = document.createElement('li')
+  liChange.appendChild(changeBtn)
+  ul.appendChild(liChange)
 
   const liDelete = document.createElement('li')
   liDelete.appendChild(deleteCategoryBtn)
   ul.appendChild(liDelete)
   categoryDiv.appendChild(ul)
 
-  const optionForSelecter = document.createElement('option')
-  optionForSelecter.value = category.id.toString()
-  optionForSelecter.textContent = category.title
-  optionForSelecter.dataset.id = `${category.id}-option`
-  selecterCategoryForTodo.appendChild(optionForSelecter)
+  const optionForSelector = document.createElement('option')
+  optionForSelector.value = category.id.toString()
+  optionForSelector.textContent = category.title
+  optionForSelector.dataset.id = `${category.id}-option`
+  selectorCategoryForTodo.appendChild(optionForSelector)
+  const filterOption = optionForSelector.cloneNode(true)
+  filter.appendChild(filterOption)
 
   listCategory.appendChild(categoryDiv)
 
   deleteCategoryBtn.addEventListener('click', () => {
-    deleteCategory(
-      category.id,
-      listCategory,
-      categories,
-      selecterCategoryForTodo,
-      listTodo,
-    )
+    deleteCategory(category.id, listCategory, categories, listTodo)
   })
 
-  chengeBtn.addEventListener('click', () => {
+  changeBtn.addEventListener('click', () => {
     showCategoryCreateMenu(
       listCategory,
       addCategoryBtn,
       closeCategoryListBtn,
-      chengeCategory,
+      changeCategory,
     )
-    updaitCategoryBtn.addEventListener('click', () => {
-      updaitCategory(
+    updateCategoryBtn.addEventListener('click', () => {
+      updateCategory(
         category.id,
         listCategory,
-        chengeCategory,
+        changeCategory,
         newNameCategory,
-        newCalorCategory,
+        newColorCategory,
         addCategoryBtn,
         closeCategoryListBtn,
         categories,
-        selecterCategoryForTodo,
+        selectorCategoryForTodo,
       )
     })
   })
@@ -195,13 +189,14 @@ export async function createNewCategory(
   categories: CategoryData[],
   addCategoryBtn: HTMLButtonElement,
   closeCategoryListBtn: HTMLButtonElement,
-  CreatCategoryMenu: HTMLDivElement,
-  updaitCategoryBtn: HTMLButtonElement,
+  CreateCategoryMenu: HTMLDivElement,
+  updateCategoryBtn: HTMLButtonElement,
   newNameCategory: HTMLInputElement,
-  newCalorCategory: HTMLInputElement,
-  chengeCategory: HTMLDivElement,
-  selecterCategoryForTodo: HTMLSelectElement,
+  newColorCategory: HTMLInputElement,
+  changeCategory: HTMLDivElement,
+  selectorCategoryForTodo: HTMLSelectElement,
   listTodo: HTMLDivElement,
+  filter: HTMLSelectElement,
 ): Promise<void> {
   const contentCategory: contentCategoryData = {
     title: titleInput.value,
@@ -215,14 +210,15 @@ export async function createNewCategory(
       listCategory,
       category,
       categories,
-      chengeCategory,
+      changeCategory,
       newNameCategory,
-      newCalorCategory,
+      newColorCategory,
       addCategoryBtn,
       closeCategoryListBtn,
-      updaitCategoryBtn,
-      selecterCategoryForTodo,
+      updateCategoryBtn,
+      selectorCategoryForTodo,
       listTodo,
+      filter,
     )
     titleInput.value = ''
     color.value = '#000000'
@@ -230,7 +226,7 @@ export async function createNewCategory(
       listCategory,
       addCategoryBtn,
       closeCategoryListBtn,
-      CreatCategoryMenu,
+      CreateCategoryMenu,
     )
   }
 }
