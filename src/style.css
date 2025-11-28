@@ -128,7 +128,7 @@ input {
 .finish-todo-btn {
   background: green;
   color: white;
-  font-weight: heavy;
+  font-weight: bold;
   border: none;
   padding: 5px 10px;
   border-radius: 5px;
