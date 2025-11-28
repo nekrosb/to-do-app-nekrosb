@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/todo.svg" />
+  <link rel="stylesheet" href="323d8e9434" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Web todolist project</title>
 </head>
@@ -11,7 +12,8 @@
 <body>
   <header>
     
-  <h1>Web todolist app</h1>
+  <h1>Web todolist app<i class="fa-solid fa-book"></i></h1>
+  
 
   <button class="add-btn" id="todo-add" aria-label="add todo">
     <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
@@ -44,7 +46,7 @@
   </div>
 
 
-  <div id="creat-todo" class="creat-new-todo">
+  <div id="create-todo" class="create-new-todo">
     <label for="todo-input">write your title</label>
     <input type="text" id="todo-input">
 
@@ -61,7 +63,7 @@
     <button id="close-create-menu" class="delete-todo-btn">close</button>
   </div>
 
-<div id="category-menu" class="creat-new-todo">
+<div id="category-menu" class="create-new-todo">
   <label for="name-category">write category name</label>
   <input type="text" id="name-category" placeholder="write category name">
 
@@ -77,7 +79,7 @@
 </div>
 
 
-<div id="chenge-category" class="creat-new-todo">
+<div id="chenge-category" class="create-new-todo">
   <label for="new-name-category">write category name</label>
   <input type="text" id="new-name-category" placeholder="write category name">
 
@@ -86,11 +88,17 @@
 
   <button id="update-category-btn">update category</button>
 </div>
+<dialog id="dialog-delete">
+  <p>you want delete all todos</p>
 
+  <button id="confirm-delete-btn">delete</button>
+  <button id="close-delete-btn">close</button>
+</dialog>
 
 
 
 
   <script type="module" src="/src/main.ts"></script>
+  <script src="https://kit.fontawesome.com/323d8e9434.js" crossorigin="anonymous"></script>
 </body>
 </html>

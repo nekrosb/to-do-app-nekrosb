@@ -34,7 +34,7 @@ async function doneOrNotDone(
     div.classList.toggle('todo-done')
     const btn = div.querySelector<HTMLButtonElement>('.finish-todo-btn')
     if (btn) {
-      btn.textContent = !todo.done ? finishHimText : iAmNotDeadText
+      btn.innerHTML = !todo.done ? finishHimText : iAmNotDeadText
     }
   }
 }
@@ -115,7 +115,7 @@ export function createTodoElement(
   pContent.textContent = todo.content ? todo.content : ''
 
   const doneBtn = document.createElement('button')
-  doneBtn.textContent = !todo.done ? finishHimText : iAmNotDeadText
+  doneBtn.innerHTML = !todo.done ? finishHimText : iAmNotDeadText
   doneBtn.classList.add('finish-todo-btn')
 
   const deleteBtn = document.createElement('button')
@@ -188,6 +188,12 @@ export async function createNewTodo(
     due_date: dateInput.value ? dateInput.value : undefined,
     done: false,
   }
+
+  if (dateInput.validity.badInput || !dateInput.validity.valid) {
+    alert('The date format is incorrect. Please use YYYY-MM-DD format.')
+    return
+  }
+
   const dateValue = dateInput.value
 
   if (dateValue) {
@@ -198,7 +204,9 @@ export async function createNewTodo(
     today.setHours(0, 0, 0, 0)
 
     if (selectedDate < today) {
-      alert('The selected date is in the past. Please choose a valid date.')
+      alert(
+        'The selected date is in the past or not complete. Please choose a valid date.',
+      )
       return
     }
   }
